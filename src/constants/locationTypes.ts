@@ -154,4 +154,4 @@ export const LOCATION_TYPES: Record<string, LocationTypeConfig> = {
   }
 };
 
-export const DEFAULT_VISIBLE_TYPES = new Set(['hiking', 'nature', 'camping']);
+export const DEFAULT_VISIBLE_TYPES = new Set(['city', 'hiking', 'nature', 'camping']);

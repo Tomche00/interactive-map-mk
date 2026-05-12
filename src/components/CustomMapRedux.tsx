@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from '@/hooks';
 import { LOCATION_TYPES, DEFAULT_VISIBLE_TYPES, LOCATION_TYPE_ORDER } from '@/constants/locationTypes';
 import { useMapInteractions } from '@/hooks/useMapInteractions';
 import { useLanguage } from '@/i18n/LanguageContext';
-import { useSearch } from '@/contexts/SearchContext';
 import { useGetLocationsQuery } from '@/store/api/locationsApi';
 import {
   getFilteredLocations,
@@ -15,6 +14,7 @@ import {
   selectAllTypes,
   deselectAllTypes,
   setVisibleTypes,
+  setSearchQuery,
 } from '@/store/slices/filtersSlice';
 import {
   setSelectedLocation,
@@ -33,7 +33,6 @@ import type { Location } from '@/types/location';
 const CustomMapRedux = () => {
   const dispatch = useAppDispatch();
   const { t } = useLanguage();
-  const { query: search } = useSearch();
   
   // Optimized Redux selectors
   const { visibleTypes, searchQuery } = useAppSelector(state => state.filters);
@@ -46,6 +45,10 @@ const CustomMapRedux = () => {
   const filteredLocations = useMemo(() => {
     return getFilteredLocations(locations, visibleTypes, searchQuery);
   }, [locations, visibleTypes, searchQuery]);
+
+  const filteredLocationCounts = useMemo(() => {
+    return getLocationCountsByType(filteredLocations);
+  }, [filteredLocations]);
   
   const availableTypes = useMemo(() => {
     return getAvailableTypes(locations);
@@ -54,10 +57,6 @@ const CustomMapRedux = () => {
   const locationCounts = useMemo(() => {
     return getLocationCountsByType(locations);
   }, [locations]);
-  
-  const filteredLocationCounts = useMemo(() => {
-    return getLocationCountsByType(filteredLocations);
-  }, [filteredLocations]);
 
   const {
     handlePinHover,
@@ -185,14 +184,6 @@ const CustomMapRedux = () => {
                 )}
               </div>
             </div>
-
-            <MobileFilters
-              availableTypes={availableTypes}
-              visibleTypes={visibleTypes}
-              onToggle={toggleLocationTypeHandler}
-              onSelectAll={selectAllTypesHandler}
-              onDeselectAll={deselectAllTypesHandler}
-            />
           </div>
         </div>
       </div>

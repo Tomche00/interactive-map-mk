@@ -1,18 +1,62 @@
+import React from 'react';
+
 import { Link, useLocation } from 'react-router-dom';
+import { useLanguage } from '@/i18n/LanguageContext';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { setSearchQuery } from '@/store/slices/filtersSlice';
 import { cn } from '@/lib/utils';
 import { MapPin, Menu, X, Search } from 'lucide-react';
-import { useState } from 'react';
-import { useLanguage } from '@/i18n/LanguageContext';
-import { useSearch } from '@/contexts/SearchContext';
+import { useState, useRef, useCallback } from 'react';
 import { Input } from '@/components/ui/input';
 import flagEn from '@/assets/flag-en.png';
 import flagMk from '@/assets/flag-mk.png';
+
+const SearchField = React.memo(({ 
+  compact = false, 
+  searchQuery, 
+  onSearchChange, 
+  onClearSearch, 
+  placeholder, 
+  ariaLabel 
+}: { 
+  compact?: boolean; 
+  searchQuery: string; 
+  onSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void; 
+  onClearSearch: () => void; 
+  placeholder: string; 
+  ariaLabel: string; 
+}) => {
+  return (
+    <div className={cn('relative', compact ? 'w-full' : 'w-full max-w-xs')}>
+      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-purple-600 pointer-events-none z-10" />
+      <Input
+        type="search"
+        value={searchQuery}
+        onChange={onSearchChange}
+        placeholder={placeholder}
+        aria-label={ariaLabel}
+        className="bg-white/90 backdrop-blur-sm border border-purple-200 rounded-lg pl-10 pr-10 h-9 text-sm text-foreground placeholder:text-muted-foreground focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 focus:outline-none transition-all duration-200"
+      />
+      {searchQuery && (
+        <button
+          type="button"
+          onClick={onClearSearch}
+          aria-label={placeholder}
+          className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-md text-muted-foreground hover:text-purple-600 hover:bg-purple-50 transition-all duration-200 z-10"
+        >
+          <X className="w-3.5 h-3.5" />
+        </button>
+      )}
+    </div>
+  );
+});
 
 const Navigation = () => {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const { language, t, toggleLanguage } = useLanguage();
-  const { query, setQuery } = useSearch();
+  const dispatch = useAppDispatch();
+  const { searchQuery } = useAppSelector(state => state.filters);
   const isMapRoute = location.pathname === '/';
 
   const navItems = [
@@ -21,29 +65,13 @@ const Navigation = () => {
     { href: '/about', label: t.nav.about },
   ];
 
-  const SearchField = ({ compact = false }: { compact?: boolean }) => (
-    <div className={cn('relative', compact ? 'w-full' : 'w-full max-w-xs')}>
-      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-purple-600 pointer-events-none z-10" />
-      <Input
-        type="search"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder={t.map.search}
-        aria-label={t.map.search}
-        className="bg-white/90 backdrop-blur-sm border border-purple-200 rounded-lg pl-10 pr-10 h-9 text-sm text-foreground placeholder:text-muted-foreground focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 focus:outline-none transition-all duration-200"
-      />
-      {query && (
-        <button
-          type="button"
-          onClick={() => setQuery('')}
-          aria-label={t.map.clearSearch}
-          className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-md text-muted-foreground hover:text-purple-600 hover:bg-purple-50 transition-all duration-200 z-10"
-        >
-          <X className="w-3.5 h-3.5" />
-        </button>
-      )}
-    </div>
-  );
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearchQuery(e.target.value));
+  }, [dispatch]);
+
+  const handleClearSearch = useCallback(() => {
+    dispatch(setSearchQuery(''));
+  }, [dispatch]);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-xl border-b border-white/20 shadow-lg">
@@ -59,7 +87,13 @@ const Navigation = () => {
           </Link>
 
           <div className="hidden md:flex items-center gap-2 flex-1 justify-end">
-            {isMapRoute && <SearchField />}
+            {isMapRoute && <SearchField 
+              searchQuery={searchQuery}
+              onSearchChange={handleSearchChange}
+              onClearSearch={handleClearSearch}
+              placeholder={t.map.search}
+              ariaLabel={t.map.search}
+            />}
             <div className="flex items-center gap-0.5">
               {navItems.map((item) => (
                 <Link
@@ -112,7 +146,14 @@ const Navigation = () => {
 
         {isMapRoute && (
           <div className="md:hidden pb-2">
-            <SearchField compact />
+            <SearchField 
+              compact
+              searchQuery={searchQuery}
+              onSearchChange={handleSearchChange}
+              onClearSearch={handleClearSearch}
+              placeholder={t.map.search}
+              ariaLabel={t.map.search}
+            />
           </div>
         )}
       </div>

@@ -6,9 +6,6 @@ const Rent = () => {
   return (
     <div className="min-h-[calc(100vh-3.5rem)]">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 pt-12 pb-16">
-        <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-2">
-          {t.rent.subtitle}
-        </p>
         <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground mb-2">
           {t.rent.title}
         </h1>

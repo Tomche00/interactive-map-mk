@@ -15,13 +15,19 @@ export const getAvailableTypes = (locations: any[]) => {
 };
 
 export const getFilteredLocations = (locations: any[], visibleTypes: string[], searchQuery: string) => {
+  if (!searchQuery || searchQuery.trim() === '') {
+    return locations.filter(location => visibleTypes.includes(location.type));
+  }
+  
+  const query = searchQuery.toLowerCase().trim();
   return locations.filter(location => {
     const matchesType = visibleTypes.includes(location.type);
-    const matchesSearch = searchQuery === '' || 
-      location.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      location.nameMk?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      location.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      location.descriptionMk?.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = 
+      location.id?.toLowerCase().includes(query) ||
+      location.name?.toLowerCase().includes(query) ||
+      location.nameMk?.toLowerCase().includes(query) ||
+      location.description?.toLowerCase().includes(query) ||
+      location.descriptionMk?.toLowerCase().includes(query);
     
     return matchesType && matchesSearch;
   });

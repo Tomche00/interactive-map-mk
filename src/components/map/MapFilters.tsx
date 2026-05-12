@@ -2,6 +2,8 @@ import React from 'react';
 import { LOCATION_TYPES } from '@/constants/locationTypes';
 import { Eye, EyeOff } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { setSearchQuery } from '@/store/slices/filtersSlice';
 import locations from '@/data/locations.json';
 
 interface MapFiltersProps {
@@ -20,7 +22,14 @@ const MapFilters = React.memo(({
   onDeselectAll,
 }: MapFiltersProps) => {
   const { t } = useLanguage();
+  const dispatch = useAppDispatch();
+  const { searchQuery } = useAppSelector(state => state.filters);
   const typeLabels = t.types as Record<string, string>;
+
+  // Handle filter toggle without interfering with search
+  const handleToggle = (type: string) => {
+    onToggle(type);
+  };
   
   const allSelected = availableTypes.length > 0 && availableTypes.every(t => visibleTypes.includes(t));
   const noneSelected = availableTypes.every(t => !visibleTypes.includes(t));
