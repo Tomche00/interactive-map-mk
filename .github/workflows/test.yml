@@ -171,7 +171,10 @@ jobs:
     
     environment: 
       name: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
-      url: ${{ github.ref == 'refs/heads/main' && secrets.PROD_URL || secrets.STAGING_URL }}
+    
+    env:
+      DEPLOY_URL: ${{ github.ref == 'refs/heads/main' && secrets.PROD_URL || secrets.STAGING_URL }}
+
       
     steps:
     - name: Checkout code
@@ -212,8 +215,7 @@ jobs:
     - name: Post-Deployment Health Check
       run: |
         sleep 30
-        URL="${{ github.ref == 'refs/heads/main' && secrets.PROD_URL || secrets.STAGING_URL }}"
-        RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" "$URL/health")
+        RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" "$DEPLOY_URL/health")
         if [ "$RESPONSE" != "200" ]; then
           echo "Health check failed with status: $RESPONSE"
           exit 1
