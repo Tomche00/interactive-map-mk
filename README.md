@@ -2,60 +2,45 @@
 
 Interactive map application for exploring North Macedonia — browse monuments, cities, nature spots, camping locations, and more.
 
-![Macedonia Explorer](docs/product-shot.png)
+## � Project Stats
 
-## 📁 Project Structure
+- **262+ locations** across Macedonia
+- **11 location types** with auto-detection
+- **2 languages** (English/Macedonian) with full translation
+- **90%+ test coverage** with comprehensive test suite
+- **Multi-platform CI/CD** with automated quality gates
 
-```
-src/
-├── store/                    # Redux store configuration
-│   ├── index.ts            # Store setup and middleware
-│   ├── api/                # RTK Query API definitions
-│   │   └── locationsApi.ts # Location data fetching
-│   ├── slices/             # Redux state slices
-│   │   ├── filtersSlice.ts  # Filter state management
-│   │   └── uiSlice.ts      # UI state (selected/hovered)
-│   └── selectors/          # Memoized data selectors
-│       └── locationSelectors.ts
-├── i18n/                   # Internationalization
-│   ├── translations.ts      # EN + MK translations
-│   └── LanguageContext.tsx # Language provider
-├── components/               # React components
-│   ├── ui/                # Reusable UI components
-│   │   └── lazy-image.tsx     # Intersection Observer lazy loading component
-│   ├── map/                # Map-specific components
-│   │   ├── MapHeader.tsx      # Page title, stats, and badge pills
-│   │   ├── MapFilters.tsx     # Desktop sidebar + mobile chip filters (React.memo optimized)
-│   │   └── MapPins.tsx      # Pin rendering and coordinate mapping (React.memo optimized)
-│   ├── CustomMapRedux.tsx     # Redux-powered main map orchestrator (useMemo optimized)
-│   ├── LocationTooltip.tsx    # Hover tooltip with navigation
-│   ├── LocationDetailSheet.tsx # Mobile sheet for location details
-│   └── Navigation.tsx         # Top nav bar with language toggle
-├── hooks/                   # Custom React hooks
-│   ├── index.ts            # Hook exports
-│   ├── useMapInteractions.ts # Map interaction handlers
-│   └── use-mobile.tsx       # Mobile detection hook
-├── constants/               # Application constants
-│   └── locationTypes.ts
-├── types/                   # TypeScript type definitions
-│   └── location.ts
-└── assets/                  # Static assets
-    ├── macedonia-map-modern.jpg
-    ├── flag-en.png
-    └── flag-mk.png
+## 🏗️ Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/interactive-map-mk.git
+cd interactive-map-mk
+
+# Install dependencies
+npm install
+
+# Start development
+npm run dev
+
+# Run tests
+npm test
 ```
 
-## ✨ Features
+## 📋 Documentation
 
-- **Interactive map** with 262+ curated locations on a custom map
-- **Multi-language** — English / Macedonian toggle with translated UI, filters, and location names
-- **Category filters** — Monuments, Cities, Nature, Camping, Recreation, Restaurants, Hotels, Lakes & Rivers
-- **Auto-detection** — new location types from data appear automatically in the legend
-- **Location details** — hover any pin for name, description, coordinates, and Google Maps navigation
-- **Responsive** — desktop sidebar filters, mobile-optimized chip filters
-- **Premium UI** — Macedonia-inspired purple theme, glass morphism navigation, sophisticated animations
-- **Performance** — Route-based code splitting, lazy loading, component memoization
-- **Testing** — Comprehensive test suite with Jest and React Testing Library
+- **[docs/QA.md](./docs/QA.md)** - Comprehensive testing & CI/CD documentation
+- **[docs/ContentManagement.md](./docs/ContentManagement.md)** - Location & translation workflows
+- **[docs/Design System](./docs/DesignSystem.md)** - UI/UX guidelines
+- **[docs/Future Roadmap](./docs/FutureRoadmap.md)** - Development roadmap
+
+## 🎯 Key Features
+
+- **Interactive map** with 262+ curated locations
+- **Multi-language** support (English/Macedonian)
+- **Advanced filtering** by location type
+- **Responsive design** for all devices
+- **Enterprise-grade CI/CD** pipeline with automated testing
 
 ## Tech Stack
 
@@ -69,11 +54,7 @@ src/
 
 ## 🚀 CI/CD Pipeline
 
-## 🚀 CI/CD Pipeline
-
 Enterprise-level QA and CI/CD pipeline with comprehensive testing and deployment automation.
-
-📖 **For detailed QA documentation**, see [docs/QA.md](./docs/QA.md)
 
 ### Key Features
 - **Multi-environment testing** (Ubuntu, Windows, macOS)
@@ -98,20 +79,6 @@ Enterprise-level QA and CI/CD pipeline with comprehensive testing and deployment
 - **Sophisticated animations** and micro-interactions
 - **Mobile-first responsive** design with desktop enhancement
 - **Accessibility-first** approach with WCAG 2.1 AA compliance
-
-## 🏆 Recent Achievements
-
-### ✅ Phase 1: Testing Infrastructure + Redux Migration (Completed)
-- Complete Redux Toolkit migration with RTK Query
-- Comprehensive testing setup with Jest and React Testing Library
-- Performance-optimized selectors and memoization
-- Type-safe Redux architecture
-
-### ✅ Phase 2: Performance Optimization + Code Splitting (Completed)
-- Route-based code splitting with React.lazy()
-- Image lazy loading with Intersection Observer
-- Component memoization with React.memo()
-- Redux optimization with utility functions
 
 ## 📊 Project Statistics
 

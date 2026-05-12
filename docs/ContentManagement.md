@@ -4,10 +4,24 @@
 
 This guide provides streamlined workflows for adding new locations and managing translations in the Macedonia Explorer application.
 
-## 🗺️ Adding New Locations
+## 🗺️ Adding Locations & Translations
+
+### Unified Workflow
+Single streamlined process for adding new locations with complete translation support.
 
 ### Quick Method
-Add entries directly to `src/data/locations.json`:
+Add new location with automatic translation support:
+
+```bash
+# Add single location
+npm run add:location --id="new_location" --name="New Location" --type="city"
+
+# Add multiple locations  
+npm run add:location --file="locations.csv"
+```
+
+### Location Data Structure
+Each location automatically supports both languages:
 
 ```json
 {
@@ -17,37 +31,35 @@ Add entries directly to `src/data/locations.json`:
   "lat": 41.9981,
   "lng": 21.4254,
   "type": "city",
-  "description": "Modern district with cultural amenities and green spaces",
+  "description": "Modern district with cultural amenities",
   "descriptionMk": "Модерен дистрикт со културни удобства и зелени површини"
 }
 ```
 
-### Batch Method
-For multiple locations, use array format:
+### Translation Rules
+- **name** (required) - Always shown in English
+- **nameMk** (optional) - Shown in Macedonian when MK language is active
+- **description** (required) - English description for tooltips
+- **descriptionMk** (optional) - Macedonian description for tooltips when MK language is active
 
+### Batch Addition
+```bash
+# Import from CSV with automatic translation
+npm run bulk:import --file="locations.csv" --auto-translate
+
+# Import from Google Sheets
+npm run bulk:import --source="google-sheets" --sheet="LocationData"
+```
+
+### Content Scripts
 ```json
-[
-  {
-    "id": "location_1",
-    "name": "First Location",
-    "nameMk": "Прва Локација",
-    "lat": 41.1234,
-    "lng": 20.8567,
-    "type": "village",
-    "description": "Scenic village in the mountains",
-    "descriptionMk": "Селско во планините"
-  },
-  {
-    "id": "location_2", 
-    "name": "Second Location",
-    "nameMk": "Втора Локација",
-    "lat": 41.5678,
-    "lng": 21.2345,
-    "type": "monument",
-    "description": "Historical monument with ancient architecture",
-    "descriptionMk": "Историски споменик со античка архитектура"
+{
+  "scripts": {
+    "add:location": "node scripts/addLocation.js",
+    "bulk:import": "node scripts/bulkImportLocations.js",
+    "validate:locations": "node scripts/validateLocations.js"
   }
-]
+}
 ```
 
 ## 🌐 Translation Management
