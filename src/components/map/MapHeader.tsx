@@ -12,6 +12,7 @@ interface MapHeaderProps {
 const MapHeader = ({ filteredLocations, visibleTypes, availableTypes, onApplyPreset }: MapHeaderProps) => {
   const { t } = useLanguage();
   const typeLabels = t.types as Record<string, string>;
+  const presetLabels = t.presets as Record<string, string>;
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-6">
@@ -27,7 +28,7 @@ const MapHeader = ({ filteredLocations, visibleTypes, availableTypes, onApplyPre
 
         <div className="space-y-4">
           <div className="mt-4 flex flex-wrap gap-1.5">
-            {Object.values(LOCATION_TYPE_PRESETS).map(preset => {
+            {Object.entries(LOCATION_TYPE_PRESETS).map(([key, preset]) => {
               const applicableTypes = preset.types.filter(t => availableTypes.includes(t));
               const selectedTypes = availableTypes.filter(t => visibleTypes.includes(t));
               const isActive =
@@ -37,7 +38,7 @@ const MapHeader = ({ filteredLocations, visibleTypes, availableTypes, onApplyPre
 
               return (
                 <button
-                  key={preset.label}
+                  key={key}
                   type="button"
                   className={`text-[11px] px-2.5 py-1.5 rounded-md border transition-colors inline-flex items-center gap-1.5 ${
                     isActive
@@ -47,7 +48,7 @@ const MapHeader = ({ filteredLocations, visibleTypes, availableTypes, onApplyPre
                   onClick={() => onApplyPreset(preset.types)}
                 >
                   <span className="leading-none">{preset.icon}</span>
-                  <span>{preset.label}</span>
+                  <span>{presetLabels[key] || preset.label}</span>
                 </button>
               );
             })}

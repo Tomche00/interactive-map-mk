@@ -70,6 +70,17 @@ export const translations = {
       museum: 'Museums',
       adventure: 'Adventure Sports',
     },
+
+    // Presets
+    presets: {
+      explore: 'Explore',
+      outdoors: 'Outdoors',
+      family: 'Family',
+      scenic: 'Scenic',
+      active: 'Active',
+      food_stay: 'Food & Stay',
+      relax: 'Relax',
+    },
   },
 
   mk: {
@@ -82,7 +93,7 @@ export const translations = {
 
     map: {
       subtitle: 'Интерактивна Мапа',
-      title: 'Истражи ја Северна Македонија',
+      title: 'Истражи ја Македонија',
       description: 'Откријте споменици, градови и природни убавини низ целата земја.',
       locations: 'локации',
       filters: 'Филтри',
@@ -135,6 +146,17 @@ export const translations = {
       monastery: 'Манастири',
       museum: 'Музеи',
       adventure: 'Авантуристички Спортови',
+    },
+
+    // Presets
+    presets: {
+      explore: 'Истражи',
+      outdoors: 'На отворено',
+      family: 'Фамилијарно',
+      scenic: 'Панорамско',
+      active: 'Активно',
+      food_stay: 'Храна и сместување',
+      relax: 'Релакс',
     },
   },
 } as const;
