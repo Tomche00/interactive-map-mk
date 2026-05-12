@@ -4,7 +4,7 @@ Interactive map application for exploring North Macedonia — browse monuments, 
 
 ![Macedonia Explorer](docs/product-shot.png)
 
-## Tech Stack
+## ⚙️ Tech Stack
 
 - **React 18 + TypeScript** - Modern React with type safety
 - **Vite** - Fast development server and optimized builds
@@ -14,7 +14,7 @@ Interactive map application for exploring North Macedonia — browse monuments, 
 - **React Testing Library + Jest** - Comprehensive testing framework
 - **Custom i18n** - Context-based internationalization (zero dependencies)
 
-## Features
+## ✨ Features
 
 - **Multi-language** — English / Macedonian toggle with translated UI, filters, and location names
 - **Category filters** — Monuments, Cities, Nature, Camping, Recreation, Restaurants, Hotels, Lakes & Rivers
@@ -25,15 +25,7 @@ Interactive map application for exploring North Macedonia — browse monuments, 
 - **Performance** — Route-based code splitting, lazy loading, component memoization
 - **Testing** — Comprehensive test suite with Jest and React Testing Library
 
-## 📋 Documentation
-
-- **[docs/QA.md](./docs/QA.md)** - Comprehensive testing and deployment documentation
-- **[docs/ContentManagement.md](./docs/ContentManagement.md)** - Location and translation workflows
-- **[docs/Design System](./docs/DesignSystem.md)** - Complete UI/UX guidelines and components
-- **[docs/Future Roadmap](./docs/FutureRoadmap.md)** - Planned features and development phases
-- **[docs/TESTING.md](./docs/TESTING.md)** - Comprehensive testing documentation
-
-## 📁 Project Structure
+##  Project Structure
 
 ```
 src/
@@ -89,7 +81,7 @@ Enterprise-level QA and CI/CD pipeline with comprehensive testing and deployment
 - **Automated deployments** (Staging → Production)
 - **Health checks** and rollback capabilities
 
-## Redux Architecture
+## 🔄 Redux Architecture
 
 The application uses Redux Toolkit for state management with the following structure:
 
@@ -200,7 +192,7 @@ export const getFilteredLocations = (locations, visibleTypes, searchQuery) =>
 
 
 
-## Multi-Language (i18n)
+## 🌍 Multi-Language (i18n)
 
 The app uses a lightweight context-based i18n system with zero external dependencies.
 
@@ -282,7 +274,7 @@ Register new types in `src/constants/locationTypes.ts` — they appear in the UI
 4. Add the corresponding flag emoji to the navbar toggle
 5. Optionally add `nameSq` (or similar) to `Location` interface and `locations.json`
 
-## Design and UI
+## 🎨 Design and UI
 
 - **Palette:** Macedonia-inspired color scheme with royal purple accent, sunset orange, lake blue, mountain green, and terracotta
 - **Background:** Elegant gradient with large blurred circles (purple top-left, blue bottom-right) for depth
@@ -334,6 +326,13 @@ Register new types in `src/constants/locationTypes.ts` — they appear in the UI
 - **Fixed Header**: Always-visible navigation with proper content spacing
 
 
-## License
+## � Documentation
+
+- **[docs/TESTING.md](./docs/TESTING.md)** - Comprehensive testing documentation
+- **[docs/ContentManagement.md](./docs/ContentManagement.md)** - Location and translation workflows
+- **[docs/Design System](./docs/DesignSystem.md)** - Complete UI/UX guidelines and components
+- **[docs/Future Roadmap](./docs/FutureRoadmap.md)** - Planned features and development phases
+
+## �📄 License
 
 All rights reserved.
