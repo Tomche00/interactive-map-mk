@@ -197,24 +197,8 @@ export const getFilteredLocations = (locations, visibleTypes, searchQuery) =>
 - `components/CustomMapRedux.tsx` - useMemo() optimized
 - `store/selectors/locationSelectors.ts` - Data processing utilities
 
-## 🎨 Design & UX
 
-## Adding Locations
 
-Add entries to `src/data/locations.json`:
-
-```json
-{
-  "name": "Location Name",
-  "nameMk": "Име на Локација",
-  "lat": 41.9981,
-  "lng": 21.4254,
-  "type": "monument",
-  "description": "Brief description"
-}
-```
-
-Register new types in `src/constants/locationTypes.ts` — they appear in the UI automatically.
 
 ## Multi-Language (i18n)
 
@@ -262,7 +246,7 @@ mk: {
 
 3. Use in component: `t.mySection.greeting`
 
-### Translating Location Pin Names
+### Adding / Translating Location Pin Names
 
 Each location in `src/data/locations.json` supports optional `nameMk` and `descriptionMk` fields for Macedonian translations:
 
@@ -280,6 +264,9 @@ Each location in `src/data/locations.json` supports optional `nameMk` and `descr
 }
 ```
 
+Register new types in `src/constants/locationTypes.ts` — they appear in the UI automatically.
+
+
 **Rules:**
 - `name` (required) — always the English name, used as default
 - `nameMk` (optional) — Macedonian name shown in tooltips when language is MK
@@ -295,7 +282,7 @@ Each location in `src/data/locations.json` supports optional `nameMk` and `descr
 4. Add the corresponding flag emoji to the navbar toggle
 5. Optionally add `nameSq` (or similar) to `Location` interface and `locations.json`
 
-## Design
+## Design and UI
 
 - **Palette:** Macedonia-inspired color scheme with royal purple accent, sunset orange, lake blue, mountain green, and terracotta
 - **Background:** Elegant gradient with large blurred circles (purple top-left, blue bottom-right) for depth
