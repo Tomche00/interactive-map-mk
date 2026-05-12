@@ -136,7 +136,7 @@ jobs:
         fail_ci_if_error: false
 
     - name: Upload Test Results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: test-results-${{ matrix.os }}-${{ matrix.node-version }}
