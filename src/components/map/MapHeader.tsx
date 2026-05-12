@@ -12,7 +12,7 @@ interface MapHeaderProps {
 const MapHeader = ({ filteredLocations, visibleTypes, availableTypes, onApplyPreset }: MapHeaderProps) => {
   const { t } = useLanguage();
   const typeLabels = t.types as Record<string, string>;
-  const presetLabels = t.presets as Record<string, string>;
+  const presetLabels = (t as any).presets as Record<string, string> || {};
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-6">

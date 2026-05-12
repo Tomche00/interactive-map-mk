@@ -148,11 +148,11 @@
   .bg-gradient::before {
     content: '';
     position: absolute;
-    top: 10%;
-    left: 5%;
+    top: 1%;
+    left: 1%;
     width: 500px;
     height: 500px;
-    background: hsl(var(--accent) / 0.08);
+    background: hsl(var(--accent) / 0.10);
     border-radius: 50%;
     filter: blur(100px);
     pointer-events: none;
@@ -161,11 +161,11 @@
   .bg-gradient::after {
     content: '';
     position: absolute;
-    bottom: 10%;
-    right: 5%;
-    width: 500px;
-    height: 500px;
-    background: hsl(var(--lake) / 0.06);
+    bottom: 0%;
+    right: -2%;
+    width: 550px;
+    height: 550px;
+    background: hsl(var(--lake) / 0.12);
     border-radius: 50%;
     filter: blur(100px);
     pointer-events: none;
