@@ -1,4 +1,4 @@
-# Design System Documentation
+# 🎨 Design System Documentation
 
 ## 🎨 Overview
 

@@ -1,30 +1,30 @@
-# Testing Strategy & Coverage Guide
+# 🧪 Testing Strategy & Coverage Guide
 
 ## Overview
 
-This document outlines the comprehensive testing strategy for the Macedonia Explorer interactive map application. It provides guidance for developers and QA teams on test coverage, scenarios, and best practices.
+This document outlines comprehensive testing strategy for Macedonia Explorer interactive map application. It provides guidance for developers and QA teams on test coverage, scenarios, and best practices.
 
 ## Table of Contents
 
-1. [Testing Architecture](#testing-architecture)
-2. [Test Types & Coverage Areas](#test-types--coverage-areas)
-3. [Current Test Coverage](#current-test-coverage)
-4. [Test Scenarios](#test-scenarios)
-5. [Testing Guidelines](#testing-guidelines)
-6. [Mock Strategy](#mock-strategy)
-7. [CI/CD Integration](#cicd-integration)
-8. [Coverage Targets](#coverage-targets)
+1. [🏗️ Testing Architecture](#testing-architecture)
+2. [🔍 Test Types & Coverage Areas](#test-types--coverage-areas)
+3. [📊 Current Test Coverage](#current-test-coverage)
+4. [📝 Test Scenarios](#test-scenarios)
+5. [📚 Testing Guidelines](#testing-guidelines)
+6. [🤡 Mock Strategy](#mock-strategy)
+7. [🔄 CI/CD Integration](#cicd-integration)
+8. [🎯 Coverage Targets](#coverage-targets)
 
 ## Testing Architecture
 
-### Technology Stack
+### 🛠️ Technology Stack
 - **Test Runner**: Jest
 - **Testing Library**: React Testing Library
 - **Assertion Library**: Jest DOM matchers
 - **Mock Framework**: Jest built-in mocking
 - **Coverage Tool**: Jest coverage reporting
 
-### Test Structure
+### 📂 Test Structure
 ```
 src/
 ├── store/                    # Redux store configuration
@@ -41,6 +41,7 @@ src/
 │   └── LanguageContext.tsx # Language provider
 ├── components/               # React components
 │   ├── ui/                # Reusable UI components
+│   │   ├── lazy-image.tsx     # Intersection Observer lazy loading
 │   ├── map/                # Map-specific components
 │   │   ├── MapHeader.tsx      # Page title, stats, and badge pills
 │   │   ├── MapFilters.tsx     # Desktop sidebar + mobile chip filters
@@ -69,7 +70,7 @@ src/
 - ✅ **IMPLEMENTED** - Test file exists and tests are passing
 - 🔄 **PENDING** - Test file needs to be created and implemented
 
-## Test Types & Coverage Areas
+## 🔍 Test Types & Coverage Areas
 
 ### 1. Unit Tests
 **Purpose**: Test individual functions and components in isolation
@@ -124,9 +125,9 @@ describe('CustomMapRedux Integration', () => {
 - Performance scenarios
 - Accessibility testing
 
-## Current Test Coverage
+## 📊 Current Test Coverage
 
-### Implemented Tests
+### ✅ Implemented Tests
 ✅ **CustomMapRedux Component**
 - Basic rendering
 - Loading state
@@ -139,14 +140,32 @@ describe('CustomMapRedux Integration', () => {
 - Language context mocking
 - Search context mocking
 
-### Pending Tests (Not Yet Implemented)
-🔄 **MapHeader Component** - Needs comprehensive testing
-🔄 **MapFilters Component** - Needs filter interaction testing
-🔄 **Redux Slices** - filtersSlice, uiSlice need reducer testing
-🔄 **API Layer** - locationsApi needs integration testing
-🔄 **Custom Hooks** - useMapInteractions, useLanguage need testing
-🔄 **Context Providers** - SearchContext, LanguageContext need testing
-🔄 **Utility Functions** - locationUtils, mapUtils need unit testing
+### 🔄 Current Implementation Status
+
+#### ✅ **Currently Implemented**
+- **CustomMapRedux Component** - Basic rendering, loading state, error handling, filter interactions
+- **Test Infrastructure** - Redux store mocking, API mocking, language context mocking, search context mocking
+
+#### 🔄 **Pending Tests (Not Yet Implemented)**
+- **Single Test File**: Only `CustomMapRedux.test.tsx` exists and is passing
+- **All Other Components**: MapHeader, MapFilters, Redux slices, API layer, hooks, contexts, utilities need test files created and implemented
+
+### 📝 Implementation Priority
+
+#### **High Priority** (Next Sprint)
+- **MapHeader Component Tests** - Location statistics, preset buttons, type counts, empty data handling
+- **MapFilters Component Tests** - Filter toggles, mobile chip interactions, type selections
+- **filtersSlice Tests** - Reducer logic, action handling, state persistence
+
+#### **Medium Priority** (Following Sprint)
+- **uiSlice Tests** - UI state management, selected locations, tooltip state
+- **API Integration Tests** - locationsApi mocking, error handling, loading states
+- **Custom Hook Tests** - useMapInteractions, useLanguage functionality
+
+#### **Low Priority** (Future)
+- **Context Provider Tests** - SearchContext, LanguageContext integration testing
+- **Utility Function Tests** - locationUtils, mapUtils unit testing
+- **Additional Component Tests** - LocationTooltip, LocationDetailSheet, Navigation component testing
 
 ### Coverage Metrics
 ```bash
@@ -158,11 +177,11 @@ All files              |    85.2 |     78.5 |    89.1 |    84.7 |
 -----------------------|---------|----------|---------|---------|-------------------
 ```
 
-## Test Scenarios
+## 📝 Test Scenarios
 
 ### 1. Component Rendering Tests
 
-#### MapHeader Component
+#### 🗺️ MapHeader Component
 ```typescript
 describe('MapHeader', () => {
   it('should render location statistics')
@@ -173,7 +192,7 @@ describe('MapHeader', () => {
 });
 ```
 
-#### MapFilters Component
+#### 🗺️ MapFilters Component
 ```typescript
 describe('MapFilters', () => {
   it('should render all available location types')
@@ -185,7 +204,7 @@ describe('MapFilters', () => {
 });
 ```
 
-#### LocationTooltip Component
+#### 🗺️ LocationTooltip Component
 ```typescript
 describe('LocationTooltip', () => {
   it('should display location information on hover')
@@ -196,7 +215,7 @@ describe('LocationTooltip', () => {
 });
 ```
 
-### 2. State Management Tests
+### 2. 🔄 State Management Tests
 
 #### Redux Slices
 ```typescript
@@ -210,7 +229,7 @@ describe('filtersSlice', () => {
 });
 ```
 
-#### API Integration
+#### 🔌 API Integration
 ```typescript
 describe('locationsApi', () => {
   it('should fetch location data successfully')
@@ -221,7 +240,7 @@ describe('locationsApi', () => {
 });
 ```
 
-### 3. User Interaction Tests
+### 3. 👤 User Interaction Tests
 
 #### Filter Interactions
 ```typescript
@@ -234,7 +253,7 @@ describe('Filter Interactions', () => {
 });
 ```
 
-#### Language Switching
+#### 🌍 Language Switching
 ```typescript
 describe('Language Switching', () => {
   it('should toggle between EN and MK')
@@ -245,7 +264,7 @@ describe('Language Switching', () => {
 });
 ```
 
-### 4. Performance Tests
+### 4. ⚡ Performance Tests
 
 #### Large Dataset Handling
 ```typescript
@@ -257,7 +276,7 @@ describe('Performance Tests', () => {
 });
 ```
 
-### 5. Accessibility Tests
+### 5. ♿ Accessibility Tests
 
 #### WCAG Compliance
 ```typescript
@@ -270,7 +289,7 @@ describe('Accessibility', () => {
 });
 ```
 
-### 6. Error Handling Tests
+### 6. 🚨 Error Handling Tests
 
 #### Network Errors
 ```typescript
@@ -283,7 +302,7 @@ describe('Error Handling', () => {
 });
 ```
 
-## Testing Guidelines
+## 📚 Testing Guidelines
 
 ### 1. Test Structure Standards
 
@@ -319,7 +338,7 @@ describe('Component Behavior', () => {
 - `render test`
 - `click button`
 
-### 2. Mock Strategy
+### 2. 🤡 Mock Strategy
 
 #### API Mocking
 ```typescript
@@ -341,7 +360,7 @@ jest.mock('./ChildComponent', () => ({
 }));
 ```
 
-### 3. Test Data Management
+### 3. 📂 Test Data Management
 
 #### Fixtures
 ```typescript
@@ -371,7 +390,7 @@ export const createLocation = (overrides = {}) => ({
 });
 ```
 
-### 4. Assertion Best Practices
+### 4. ✅ Assertion Best Practices
 
 #### Prefer User-Focused Assertions
 ```typescript
@@ -393,7 +412,7 @@ screen.getByPlaceholderText('Search locations')
 screen.getByTestId('unique-element-id')
 ```
 
-## Mock Strategy
+## 🤡 Mock Strategy
 
 ### 1. API Layer Mocking
 
@@ -422,7 +441,7 @@ beforeEach(() => {
 });
 ```
 
-### 2. External Service Mocks
+### 2. 🔌 External Service Mocks
 
 #### Google Maps Integration
 ```typescript
@@ -443,7 +462,7 @@ const localStorageMock = {
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 ```
 
-### 3. Component Mocks
+### 3. 🗺️ Component Mocks
 
 #### Complex Component Isolation
 ```typescript
@@ -456,7 +475,7 @@ jest.mock('./ComplexChild', () => ({
 }));
 ```
 
-## CI/CD Integration
+## 🔄 CI/CD Integration
 
 ### 1. GitHub Actions Workflow
 
@@ -477,7 +496,7 @@ jobs:
       - uses: codecov/codecov-action@v3
 ```
 
-### 2. Pre-commit Hooks
+### 2. 🪝 Pre-commit Hooks
 
 ```json
 {
@@ -490,7 +509,7 @@ jobs:
 }
 ```
 
-### 3. Coverage Reporting
+### 3. 📊 Coverage Reporting
 
 #### Jest Configuration
 ```javascript
@@ -514,7 +533,7 @@ export default {
 };
 ```
 
-## Coverage Targets
+## 🎯 Coverage Targets
 
 ### 1. Current Coverage Goals
 
@@ -529,7 +548,7 @@ export default {
 
 **Note**: Only CustomMapRedux.test.tsx is currently implemented. All other modules need test files created and implemented.
 
-### 2. Coverage Categories
+### 2. 📊 Coverage Categories
 
 #### Critical (Must Cover)
 - User interaction flows
@@ -549,7 +568,7 @@ export default {
 - Load testing scenarios
 - Security testing
 
-### 3. Quality Gates
+### 3. ✅ Quality Gates
 
 #### Pre-release Requirements
 - **Minimum Coverage**: 80% overall
@@ -563,7 +582,7 @@ export default {
 - **Performance Tests**: No performance regressions
 - **Accessibility Tests**: WCAG 2.1 AA compliance
 
-## Running Tests
+## 🚀 Running Tests
 
 ### Development Commands
 
@@ -590,7 +609,7 @@ npm test -- --verbose
 npm test -- --updateSnapshot
 ```
 
-### Debugging Tests
+### 🐛 Debugging Tests
 
 #### Debug Mode
 ```bash
@@ -601,13 +620,13 @@ node --inspect-brk node_modules/.bin/jest --runInBand
 npm test -- --testNamePattern="specific test" --runInBand
 ```
 
-#### Test Debugging Tips
+#### 🐛 Test Debugging Tips
 1. Use `screen.debug()` to inspect rendered output
 2. Use `logRoles()` to understand accessibility structure
 3. Use `act()` wrapper for state updates
 4. Check mock call history with `mock.calls`
 
-## Future Testing Roadmap
+## 🗺️ Future Testing Roadmap
 
 ### Phase 1: Complete Unit Coverage (Next Sprint)
 - [ ] MapFilters component tests
@@ -622,14 +641,14 @@ npm test -- --testNamePattern="specific test" --runInBand
 - [ ] State management integration
 - [ ] Error scenario testing
 
-### Phase 3: Advanced Testing (Future)
+### Phase 3: 🚀 Advanced Testing (Future)
 - [ ] Visual regression testing
 - [ ] Performance testing
 - [ ] Accessibility testing
 - [ ] Cross-browser testing
 - [ ] E2E test automation
 
-## Contributing to Tests
+## 🤝 Contributing to Tests
 
 ### Adding New Tests
 1. Follow existing naming conventions
@@ -638,7 +657,7 @@ npm test -- --testNamePattern="specific test" --runInBand
 4. Add appropriate mocks
 5. Update coverage documentation
 
-### Test Review Checklist
+### 📋 Test Review Checklist
 - [ ] Test follows naming conventions
 - [ ] Test has clear arrange-act-assert structure
 - [ ] Assertions are user-focused
