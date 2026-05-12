@@ -51,38 +51,47 @@ src/
 │   ├── index.ts               # Redux store configuration
 │   ├── api/
 │   │   └── locationsApi.ts    # RTK Query API for location data
-│   └── slices/
-│       ├── filtersSlice.ts     # Filter state management
-│       └── uiSlice.ts         # UI state (selected/hovered locations)
+│   ├── slices/
+│   │   ├── filtersSlice.ts     # Filter state management
+│   │   └── uiSlice.ts         # UI state (selected/hovered locations)
+│   └── selectors/
+│       └── locationSelectors.ts  # Performance-optimized data processing utilities
 ├── i18n/
 │   ├── translations.ts         # EN + MK translation strings
 │   └── LanguageContext.tsx    # React context provider + useLanguage hook
 ├── components/
+│   ├── ui/
+│   │   └── lazy-image.tsx     # Intersection Observer lazy loading component
 │   ├── map/
 │   │   ├── MapHeader.tsx      # Page title, stats, and badge pills
-│   │   ├── MapFilters.tsx     # Desktop sidebar + mobile chip filters
-│   │   └── MapPins.tsx      # Pin rendering and coordinate mapping
-│   ├── CustomMapRedux.tsx     # Redux-powered main map orchestrator
+│   │   ├── MapFilters.tsx     # Desktop sidebar + mobile chip filters (React.memo optimized)
+│   │   └── MapPins.tsx      # Pin rendering and coordinate mapping (React.memo optimized)
+│   ├── CustomMapRedux.tsx     # Redux-powered main map orchestrator (useMemo optimized)
 │   ├── CustomMap.tsx          # Legacy component (deprecated)
 │   ├── LocationTooltip.tsx    # Hover tooltip with navigation
+│   ├── LocationDetailSheet.tsx # Mobile sheet for location details
 │   └── Navigation.tsx         # Top nav bar with language toggle
 ├── hooks/
 │   ├── index.ts              # Hook exports
 │   ├── useAppDispatch.ts     # Typed Redux dispatch hook
 │   ├── useAppSelector.ts     # Typed Redux selector hook
 │   └── useMapInteractions.ts # Tooltip state and navigation logic
+├── contexts/
+│   └── SearchContext.tsx     # Search state management context
 ├── components/__tests__/
 │   └── CustomMapRedux.test.tsx # Component tests
 ├── types/
 │   └── location.ts           # Shared Location interface (name + nameMk)
 ├── constants/
-│   └── locationTypes.ts      # Category config (color, icon, label)
+│   └── locationTypes.ts      # Category config (color, icon, label, order, presets)
 ├── data/
 │   └── locations.json       # Location data (262+ entries)
 ├── pages/
-│   ├── Index.tsx
-│   ├── About.tsx
-│   └── Rent.tsx
+│   ├── Index.tsx             # Lazy-loaded main map page
+│   ├── About.tsx             # Lazy-loaded about page
+│   └── Rent.tsx              # Lazy-loaded rent page
+├── docs/
+│   └── TESTING.md            # Comprehensive testing documentation
 ├── setupTests.ts            # Jest configuration and mocks
 └── index.css               # Design tokens
 ```
@@ -192,30 +201,9 @@ Each location in `src/data/locations.json` supports optional `nameMk` and `descr
 
 ## Testing
 
-The project includes a comprehensive testing setup with Jest and React Testing Library:
+📋 **[View Comprehensive Testing Documentation](docs/TESTING.md)**
 
-### Test Structure
-- **Unit tests** for components in `src/components/__tests__/`
-- **Integration tests** for Redux slices and API endpoints
-- **Mock configurations** in `src/setupTests.ts`
-
-### Running Tests
-```bash
-# Run all tests once
-npm test
-
-# Run tests in watch mode
-npm run test:watch
-
-# Generate coverage report
-npm run test:coverage
-```
-
-### Test Coverage Goals
-- **Target**: 90%+ code coverage
-- **Components**: Test user interactions and state changes
-- **Redux**: Test reducers, selectors, and async thunks
-- **API**: Test data fetching and error handling
+The project includes a complete testing setup with Jest and React Testing Library, covering unit tests, integration tests, and performance testing scenarios.
 
 ## Redux Architecture
 
@@ -234,27 +222,18 @@ The application uses Redux Toolkit for state management with the following struc
 
 ## Performance Optimizations
 
-### Phase 1 Improvements
-- **Redux Toolkit**: Optimized state updates with Immer
-- **RTK Query**: Intelligent caching and background updates
-- **Code splitting**: Lazy loading of components
-- **Type safety**: Reduced runtime errors with strict TypeScript
-
-### Phase 2: Performance Optimization + Code Splitting
-
-#### **Architecture Overview**
+### Core Optimizations
 - **Route-based code splitting** with `React.lazy()` and `Suspense`
 - **Image lazy loading** using Intersection Observer API
-- **Component render optimization** with `React.memo()`
-- **Redux store optimization** with utility functions and memoization
+- **Component memoization** with `React.memo()` for expensive renders
+- **Redux optimization** with utility functions and `useMemo()`
 
-#### **Key Implementations**
+### Implementation Patterns
 
 **Code Splitting**
 ```typescript
 // App.tsx
 const Index = lazy(() => import("./pages/Index"));
-const Rent = lazy(() => import("./pages/Rent"));
 
 <Routes>
   <Route path="/" element={
@@ -265,10 +244,10 @@ const Rent = lazy(() => import("./pages/Rent"));
 </Routes>
 ```
 
-**Image Optimization**
+**Lazy Image Component**
 ```typescript
 // components/ui/lazy-image.tsx
-const LazyImage = ({ src, alt, className }) => {
+const LazyImage = ({ src, alt }) => {
   const [isInView, setIsInView] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
@@ -285,20 +264,20 @@ const LazyImage = ({ src, alt, className }) => {
 };
 ```
 
-**Component Optimization**
+**Component Memoization**
 ```typescript
 // components/map/MapPins.tsx
-const MapPins = React.memo(({ locations, onHover, onLeave, onMove, onClick }) => {
+const MapPins = React.memo(({ locations, onHover, onClick }) => {
   // Expensive rendering logic
 });
 
-// components/map/MapFilters.tsx
-const MapFilters = React.memo(({ availableTypes, visibleTypes, onToggle }) => {
+// components/map/MapFilters.tsx  
+const MapFilters = React.memo(({ availableTypes, onToggle }) => {
   // Filter component logic
 });
 ```
 
-**Redux Optimization**
+**Redux Utilities**
 ```typescript
 // store/selectors/locationSelectors.ts
 export const getAvailableTypes = (locations) => 
@@ -313,17 +292,13 @@ export const getFilteredLocations = (locations, visibleTypes, searchQuery) =>
   );
 ```
 
-#### **File Structure**
-```
-src/
-├── components/
-│   ├── ui/lazy-image.tsx           # Intersection Observer image component
-│   ├── map/MapPins.tsx             # React.memo() optimized
-│   ├── map/MapFilters.tsx          # React.memo() optimized
-│   └── CustomMapRedux.tsx          # useMemo() optimized data processing
-├── store/selectors/locationSelectors.ts  # Data processing utilities
-└── App.tsx                         # React.lazy() route splitting
-```
+### Optimized Files
+- `App.tsx` - Route splitting
+- `components/ui/lazy-image.tsx` - Intersection Observer
+- `components/map/MapPins.tsx` - React.memo() optimized
+- `components/map/MapFilters.tsx` - React.memo() optimized
+- `components/CustomMapRedux.tsx` - useMemo() optimized
+- `store/selectors/locationSelectors.ts` - Data processing utilities
 
 ## Future Roadmap
 
