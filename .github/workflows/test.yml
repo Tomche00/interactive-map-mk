@@ -1,4 +1,4 @@
-name: CI/CD Pipeline - Senior QA Standards
+name: CI/CD Pipeline - Interactive Map.mk
 
 permissions:
   contents: read
