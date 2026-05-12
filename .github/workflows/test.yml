@@ -246,7 +246,8 @@ jobs:
 
     - name: Notify Team
       uses: 8398a7/action-slack@v3
-      if: always()
+      if: always() && github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+      continue-on-error: true
       with:
         status: ${{ job.status }}
         channel: '#deployments'
