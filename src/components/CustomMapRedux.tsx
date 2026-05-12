@@ -6,6 +6,11 @@ import { useLanguage } from '@/i18n/LanguageContext';
 import { useSearch } from '@/contexts/SearchContext';
 import { useGetLocationsQuery } from '@/store/api/locationsApi';
 import {
+  getFilteredLocations,
+  getAvailableTypes,
+  getLocationCountsByType,
+} from '@/store/selectors/locationSelectors';
+import {
   toggleLocationType,
   selectAllTypes,
   deselectAllTypes,
@@ -22,6 +27,7 @@ import { LocationTooltip } from './LocationTooltip';
 import { LocationDetailSheet } from './LocationDetailSheet';
 import macedoniaMap from '@/assets/macedonia-map-modern.jpg';
 import { SearchX } from 'lucide-react';
+import LazyImage from './ui/lazy-image';
 import type { Location } from '@/types/location';
 
 const CustomMapRedux = () => {
@@ -29,12 +35,29 @@ const CustomMapRedux = () => {
   const { t } = useLanguage();
   const { query: search } = useSearch();
   
-  // Redux selectors
+  // Optimized Redux selectors
   const { visibleTypes, searchQuery } = useAppSelector(state => state.filters);
   const { selectedLocation, hoveredLocation, tooltipPosition, sheetOpen } = useAppSelector(state => state.ui);
   
   // RTK Query hook
   const { data: locations = [], isLoading, error } = useGetLocationsQuery();
+  
+  // Memoized computed values using utility functions
+  const filteredLocations = useMemo(() => {
+    return getFilteredLocations(locations, visibleTypes, searchQuery);
+  }, [locations, visibleTypes, searchQuery]);
+  
+  const availableTypes = useMemo(() => {
+    return getAvailableTypes(locations);
+  }, [locations]);
+  
+  const locationCounts = useMemo(() => {
+    return getLocationCountsByType(locations);
+  }, [locations]);
+  
+  const filteredLocationCounts = useMemo(() => {
+    return getLocationCountsByType(filteredLocations);
+  }, [filteredLocations]);
 
   const {
     handlePinHover,
@@ -45,21 +68,6 @@ const CustomMapRedux = () => {
     handleTooltipMouseLeave,
   } = useMapInteractions();
 
-  const availableTypes = useMemo(
-    () =>
-      Array.from(new Set((locations as Location[]).map(l => l.type)))
-        .filter(type => LOCATION_TYPES[type])
-        .sort((a, b) => {
-          const ai = LOCATION_TYPE_ORDER.indexOf(a);
-          const bi = LOCATION_TYPE_ORDER.indexOf(b);
-          const aRank = ai === -1 ? Number.POSITIVE_INFINITY : ai;
-          const bRank = bi === -1 ? Number.POSITIVE_INFINITY : bi;
-          if (aRank !== bRank) return aRank - bRank;
-          return (LOCATION_TYPES[a]?.label || a).localeCompare(LOCATION_TYPES[b]?.label || b);
-        }),
-    [locations]
-  );
-
   const selectAllTypesHandler = () => dispatch(selectAllTypes(availableTypes as string[]));
   const deselectAllTypesHandler = () => dispatch(deselectAllTypes());
   const applyPreset = (types: string[]) => {
@@ -68,21 +76,6 @@ const CustomMapRedux = () => {
   const toggleLocationTypeHandler = (type: string) => {
     dispatch(toggleLocationType(type));
   };
-
-  const filteredLocations = useMemo(() => {
-    const q = searchQuery || search.trim().toLowerCase();
-    return locations.filter(l => {
-      if (!visibleTypes.includes(l.type)) return false;
-      if (!q) return true;
-      return (
-        l.name?.toLowerCase().includes(q) ||
-        l.nameMk?.toLowerCase().includes(q) ||
-        l.description?.toLowerCase().includes(q) ||
-        l.descriptionMk?.toLowerCase().includes(q) ||
-        l.type?.toLowerCase().includes(q)
-      );
-    });
-  }, [locations, visibleTypes, searchQuery, search]);
 
   const openLocation = (location: Location) => {
     dispatch(setSelectedLocation(location));
@@ -164,7 +157,7 @@ const CustomMapRedux = () => {
           <div className="flex-1 min-w-0">
             <div className="glass-panel overflow-hidden">
               <div className="relative">
-                <img
+                <LazyImage
                   src={macedoniaMap}
                   alt="North Macedonia Map"
                   className="w-full h-auto object-contain"

@@ -23,7 +23,7 @@ interface MapPinsProps {
   onClick: (location: Location) => void;
 }
 
-const MapPins = ({ locations, onHover, onLeave, onMove, onClick }: MapPinsProps) => {
+const MapPins = React.memo(({ locations, onHover, onLeave, onMove, onClick }: MapPinsProps) => {
   return (
     <div className="absolute inset-0">
       {locations.map((location) => {
@@ -59,6 +59,6 @@ const MapPins = ({ locations, onHover, onLeave, onMove, onClick }: MapPinsProps)
       })}
     </div>
   );
-};
+});
 
 export default MapPins;

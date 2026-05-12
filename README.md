@@ -240,6 +240,91 @@ The application uses Redux Toolkit for state management with the following struc
 - **Code splitting**: Lazy loading of components
 - **Type safety**: Reduced runtime errors with strict TypeScript
 
+### Phase 2: Performance Optimization + Code Splitting
+
+#### **Architecture Overview**
+- **Route-based code splitting** with `React.lazy()` and `Suspense`
+- **Image lazy loading** using Intersection Observer API
+- **Component render optimization** with `React.memo()`
+- **Redux store optimization** with utility functions and memoization
+
+#### **Key Implementations**
+
+**Code Splitting**
+```typescript
+// App.tsx
+const Index = lazy(() => import("./pages/Index"));
+const Rent = lazy(() => import("./pages/Rent"));
+
+<Routes>
+  <Route path="/" element={
+    <Suspense fallback={<LoadingFallback />}>
+      <Index />
+    </Suspense>
+  } />
+</Routes>
+```
+
+**Image Optimization**
+```typescript
+// components/ui/lazy-image.tsx
+const LazyImage = ({ src, alt, className }) => {
+  const [isInView, setIsInView] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) setIsInView(true);
+    }, { threshold: 0.1, rootMargin: '50px' });
+
+    if (imgRef.current) observer.observe(imgRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return <img ref={imgRef} src={isInView ? src : placeholder} alt={alt} />;
+};
+```
+
+**Component Optimization**
+```typescript
+// components/map/MapPins.tsx
+const MapPins = React.memo(({ locations, onHover, onLeave, onMove, onClick }) => {
+  // Expensive rendering logic
+});
+
+// components/map/MapFilters.tsx
+const MapFilters = React.memo(({ availableTypes, visibleTypes, onToggle }) => {
+  // Filter component logic
+});
+```
+
+**Redux Optimization**
+```typescript
+// store/selectors/locationSelectors.ts
+export const getAvailableTypes = (locations) => 
+  Array.from(new Set(locations.map(l => l.type)))
+    .filter(type => LOCATION_TYPES[type])
+    .sort(LOCATION_TYPE_ORDER);
+
+export const getFilteredLocations = (locations, visibleTypes, searchQuery) =>
+  locations.filter(location => 
+    visibleTypes.includes(location.type) && 
+    matchesSearch(location, searchQuery)
+  );
+```
+
+#### **File Structure**
+```
+src/
+├── components/
+│   ├── ui/lazy-image.tsx           # Intersection Observer image component
+│   ├── map/MapPins.tsx             # React.memo() optimized
+│   ├── map/MapFilters.tsx          # React.memo() optimized
+│   └── CustomMapRedux.tsx          # useMemo() optimized data processing
+├── store/selectors/locationSelectors.ts  # Data processing utilities
+└── App.tsx                         # React.lazy() route splitting
+```
+
 ## Future Roadmap
 
 ### Phase 2: Performance & Data Optimization

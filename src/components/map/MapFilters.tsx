@@ -1,3 +1,4 @@
+import React from 'react';
 import { LOCATION_TYPES } from '@/constants/locationTypes';
 import { Eye, EyeOff } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
@@ -11,7 +12,7 @@ interface MapFiltersProps {
   onDeselectAll: () => void;
 }
 
-const MapFilters = ({
+const MapFilters = React.memo(({
   availableTypes,
   visibleTypes,
   onToggle,
@@ -79,9 +80,9 @@ const MapFilters = ({
       </div>
     </div>
   );
-};
+});
 
-export const MobileFilters = ({
+export const MobileFilters = React.memo(({
   availableTypes,
   visibleTypes,
   onToggle,
@@ -141,6 +142,6 @@ export const MobileFilters = ({
       </div>
     </div>
   );
-};
+});
 
 export default MapFilters;
