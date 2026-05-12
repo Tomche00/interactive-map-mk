@@ -4,7 +4,7 @@ import type { Location } from '@/types/location';
 
 interface MapHeaderProps {
   filteredLocations: Location[];
-  visibleTypes: Set<string>;
+  visibleTypes: string[];
   availableTypes: string[];
   onApplyPreset: (types: string[]) => void;
 }
@@ -28,11 +28,11 @@ const MapHeader = ({ filteredLocations, visibleTypes, availableTypes, onApplyPre
       <div className="mt-4 flex flex-wrap gap-1.5">
         {Object.values(LOCATION_TYPE_PRESETS).map(preset => {
           const applicableTypes = preset.types.filter(t => availableTypes.includes(t));
-          const selectedTypes = availableTypes.filter(t => visibleTypes.has(t));
+          const selectedTypes = availableTypes.filter(t => visibleTypes.includes(t));
           const isActive =
             applicableTypes.length > 0 &&
             selectedTypes.length === applicableTypes.length &&
-            applicableTypes.every(t => visibleTypes.has(t));
+            applicableTypes.every(t => visibleTypes.includes(t));
 
           return (
             <button
@@ -58,7 +58,7 @@ const MapHeader = ({ filteredLocations, visibleTypes, availableTypes, onApplyPre
         </span>
         {availableTypes.map(type => {
           const count = filteredLocations.filter(l => l.type === type).length;
-          if (!visibleTypes.has(type) || count === 0) return null;
+          if (!visibleTypes.includes(type) || count === 0) return null;
           const config = LOCATION_TYPES[type];
           const color = config?.color || '#60a5fa';
           return (

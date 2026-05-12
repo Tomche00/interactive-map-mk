@@ -1,4 +1,4 @@
-import CustomMap from '@/components/CustomMap';
+import CustomMap from '@/components/CustomMapRedux';
 
 const Index = () => <CustomMap />;
 

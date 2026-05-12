@@ -1,31 +1,30 @@
-import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { setHoveredLocation, setTooltipPosition } from '@/store/slices/uiSlice';
 import type { Location } from '@/types/location';
 
 export const useMapInteractions = () => {
-  const [hoveredLocation, setHoveredLocation] = useState<Location | null>(null);
-  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
-  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const dispatch = useAppDispatch();
+  const hoveredLocation = useAppSelector(state => state.ui.hoveredLocation);
+  const tooltipPosition = useAppSelector(state => state.ui.tooltipPosition);
 
   const handlePinHover = (location: Location, event: React.MouseEvent) => {
-    setHoveredLocation(location);
-    setTooltipPosition({ x: event.clientX, y: event.clientY });
-    setTooltipVisible(true);
+    dispatch(setHoveredLocation(location));
+    dispatch(setTooltipPosition({ x: event.clientX, y: event.clientY }));
   };
 
   const handlePinLeave = () => {
     setTimeout(() => {
-      if (!tooltipVisible) setHoveredLocation(null);
+      dispatch(setHoveredLocation(null));
     }, 100);
   };
 
   const handlePinMove = (event: React.MouseEvent) => {
-    setTooltipPosition({ x: event.clientX, y: event.clientY });
+    dispatch(setTooltipPosition({ x: event.clientX, y: event.clientY }));
   };
 
-  const handleTooltipMouseEnter = () => setTooltipVisible(true);
+  const handleTooltipMouseEnter = () => {};
   const handleTooltipMouseLeave = () => {
-    setTooltipVisible(false);
-    setHoveredLocation(null);
+    dispatch(setHoveredLocation(null));
   };
 
   const handleNavigation = (location: Location) => {

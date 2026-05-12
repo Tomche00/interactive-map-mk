@@ -5,7 +5,7 @@ import locations from '@/data/locations.json';
 
 interface MapFiltersProps {
   availableTypes: string[];
-  visibleTypes: Set<string>;
+  visibleTypes: string[];
   onToggle: (type: string) => void;
   onSelectAll: () => void;
   onDeselectAll: () => void;
@@ -20,8 +20,9 @@ const MapFilters = ({
 }: MapFiltersProps) => {
   const { t } = useLanguage();
   const typeLabels = t.types as Record<string, string>;
-  const allSelected = availableTypes.length > 0 && availableTypes.every(t => visibleTypes.has(t));
-  const noneSelected = availableTypes.every(t => !visibleTypes.has(t));
+  
+  const allSelected = availableTypes.length > 0 && availableTypes.every(t => visibleTypes.includes(t));
+  const noneSelected = availableTypes.every(t => !visibleTypes.includes(t));
 
   return (
     <div className="hidden lg:block w-52 flex-shrink-0">
@@ -49,8 +50,8 @@ const MapFilters = ({
         </div>
         {availableTypes.map(type => {
           const config = LOCATION_TYPES[type];
-          const isVisible = visibleTypes.has(type);
           const count = locations.filter(l => l.type === type).length;
+          const isVisible = visibleTypes.includes(type);
           return (
             <button
               key={type}
@@ -89,8 +90,9 @@ export const MobileFilters = ({
 }: MapFiltersProps) => {
   const { t } = useLanguage();
   const typeLabels = t.types as Record<string, string>;
-  const allSelected = availableTypes.length > 0 && availableTypes.every(t => visibleTypes.has(t));
-  const noneSelected = availableTypes.every(t => !visibleTypes.has(t));
+
+  const allSelected = availableTypes.length > 0 && availableTypes.every(t => visibleTypes.includes(t));
+  const noneSelected = availableTypes.every(t => !visibleTypes.includes(t));
 
   return (
     <div className="lg:hidden mt-4">
@@ -120,7 +122,7 @@ export const MobileFilters = ({
       <div className="flex flex-wrap gap-1.5">
         {availableTypes.map(type => {
           const config = LOCATION_TYPES[type];
-          const isVisible = visibleTypes.has(type);
+          const isVisible = visibleTypes.includes(type);
           return (
             <button
               key={type}

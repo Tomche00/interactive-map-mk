@@ -20,43 +20,71 @@ Interactive map application for exploring North Macedonia — browse monuments, 
 - Vite
 - Tailwind CSS + shadcn/ui
 - React Router
+- Redux Toolkit + RTK Query
+- React Testing Library + Jest
 - Custom i18n (context-based, zero dependencies)
 
 ## Getting Started
 
 ```bash
+# Install dependencies
 npm install
+
+# Start development server
 npm run dev
+
+# Run tests
+npm test
+
+# Run tests with coverage
+npm run test:coverage
+
+# Watch tests during development
+npm run test:watch
 ```
 
 ## Project Structure
 
 ```
 src/
+├── store/
+│   ├── index.ts               # Redux store configuration
+│   ├── api/
+│   │   └── locationsApi.ts    # RTK Query API for location data
+│   └── slices/
+│       ├── filtersSlice.ts     # Filter state management
+│       └── uiSlice.ts         # UI state (selected/hovered locations)
 ├── i18n/
-│   ├── translations.ts        # EN + MK translation strings
-│   └── LanguageContext.tsx     # React context provider + useLanguage hook
+│   ├── translations.ts         # EN + MK translation strings
+│   └── LanguageContext.tsx    # React context provider + useLanguage hook
 ├── components/
 │   ├── map/
-│   │   ├── MapHeader.tsx       # Page title, stats, and badge pills
-│   │   ├── MapFilters.tsx      # Desktop sidebar + mobile chip filters
-│   │   └── MapPins.tsx         # Pin rendering and coordinate mapping
-│   ├── CustomMap.tsx           # Main map orchestrator
-│   ├── LocationTooltip.tsx     # Hover tooltip with navigation
-│   └── Navigation.tsx          # Top nav bar with language toggle
+│   │   ├── MapHeader.tsx      # Page title, stats, and badge pills
+│   │   ├── MapFilters.tsx     # Desktop sidebar + mobile chip filters
+│   │   └── MapPins.tsx      # Pin rendering and coordinate mapping
+│   ├── CustomMapRedux.tsx     # Redux-powered main map orchestrator
+│   ├── CustomMap.tsx          # Legacy component (deprecated)
+│   ├── LocationTooltip.tsx    # Hover tooltip with navigation
+│   └── Navigation.tsx         # Top nav bar with language toggle
 ├── hooks/
-│   └── useMapInteractions.ts   # Tooltip state and navigation logic
+│   ├── index.ts              # Hook exports
+│   ├── useAppDispatch.ts     # Typed Redux dispatch hook
+│   ├── useAppSelector.ts     # Typed Redux selector hook
+│   └── useMapInteractions.ts # Tooltip state and navigation logic
+├── components/__tests__/
+│   └── CustomMapRedux.test.tsx # Component tests
 ├── types/
-│   └── location.ts             # Shared Location interface (name + nameMk)
+│   └── location.ts           # Shared Location interface (name + nameMk)
 ├── constants/
-│   └── locationTypes.ts        # Category config (color, icon, label)
+│   └── locationTypes.ts      # Category config (color, icon, label)
 ├── data/
-│   └── locations.json          # Location data (262+ entries)
+│   └── locations.json       # Location data (262+ entries)
 ├── pages/
 │   ├── Index.tsx
 │   ├── About.tsx
 │   └── Rent.tsx
-└── index.css                   # Design tokens
+├── setupTests.ts            # Jest configuration and mocks
+└── index.css               # Design tokens
 ```
 
 ## Adding Locations
@@ -161,6 +189,70 @@ Each location in `src/data/locations.json` supports optional `nameMk` and `descr
 - **Navigation:** Frosted glass with subtle gradient tint
 - **Components:** Glass panels, badge pills, section cards
 - **Tokens:** All colors defined as HSL CSS variables in `index.css`
+
+## Testing
+
+The project includes a comprehensive testing setup with Jest and React Testing Library:
+
+### Test Structure
+- **Unit tests** for components in `src/components/__tests__/`
+- **Integration tests** for Redux slices and API endpoints
+- **Mock configurations** in `src/setupTests.ts`
+
+### Running Tests
+```bash
+# Run all tests once
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Generate coverage report
+npm run test:coverage
+```
+
+### Test Coverage Goals
+- **Target**: 90%+ code coverage
+- **Components**: Test user interactions and state changes
+- **Redux**: Test reducers, selectors, and async thunks
+- **API**: Test data fetching and error handling
+
+## Redux Architecture
+
+The application uses Redux Toolkit for state management with the following structure:
+
+### Store Slices
+- **filtersSlice**: Manages location type filters and search queries
+- **uiSlice**: Handles UI state (selected locations, tooltips, modals)
+- **locationsApi**: RTK Query for location data fetching and caching
+
+### Benefits
+- **Type safety**: Full TypeScript integration
+- **Performance**: Automatic caching and memoization
+- **DevTools**: Redux DevTools integration
+- **Scalability**: Easy to add new features and state
+
+## Performance Optimizations
+
+### Phase 1 Improvements
+- **Redux Toolkit**: Optimized state updates with Immer
+- **RTK Query**: Intelligent caching and background updates
+- **Code splitting**: Lazy loading of components
+- **Type safety**: Reduced runtime errors with strict TypeScript
+
+## Future Roadmap
+
+### Phase 2: Performance & Data Optimization
+- Virtual scrolling for large location lists
+- Map clustering for zoom levels
+- IndexedDB for offline storage
+- Web Workers for heavy computations
+
+### Phase 3: Advanced Features
+- PWA capabilities
+- Real-time updates
+- Advanced analytics
+- A/B testing framework
 
 ## License
 
