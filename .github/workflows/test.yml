@@ -245,7 +245,7 @@ jobs:
         echo "Health check passed"
 
     - name: Notify Team
-      uses: 8398a7/action-slack@v4
+      uses: 8398a7/action-slack@v3
       if: always()
       with:
         status: ${{ job.status }}
@@ -266,9 +266,13 @@ jobs:
     - name: Automatic Rollback
       run: |
         echo "Initiating emergency rollback..."
-        curl -X POST "${{ secrets.ROLLBACK_WEBHOOK }}" \
-          -H "Authorization: Bearer ${{ secrets.ROLLBACK_TOKEN }}" \
-          -H "Content-Type: application/json"
+        if [ -n "${{ secrets.ROLLBACK_WEBHOOK }}" ]; then
+          curl -X POST "${{ secrets.ROLLBACK_WEBHOOK }}" \
+            -H "Authorization: Bearer ${{ secrets.ROLLBACK_TOKEN }}" \
+            -H "Content-Type: application/json" || echo "Rollback webhook failed"
+        else
+          echo "Rollback webhook URL not configured - skipping webhook call"
+        fi
         echo "Rollback completed"
 
 # Workflow Summary
