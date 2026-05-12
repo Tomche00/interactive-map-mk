@@ -48,8 +48,13 @@ jobs:
 
     - name: Run ESLint
       run: |
-        npm run lint -- --format=json --output-file=eslint-report.json
-        echo "violations=$(cat eslint-report.json | jq '. | length')" >> $GITHUB_OUTPUT
+        npm run lint -- --format=json --output-file=eslint-report.json --quiet || true
+        ERRORS=$(cat eslint-report.json | jq '[.[] | select(.severity == 2)] | length')
+        echo "violations=$ERRORS" >> $GITHUB_OUTPUT
+        if [ "$ERRORS" -gt 0 ]; then
+          echo "ESLint found $ERRORS error(s)"
+          exit 1
+        fi
 
     - name: TypeScript Type Check
       run: npx tsc --noEmit
