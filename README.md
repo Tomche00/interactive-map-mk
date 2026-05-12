@@ -4,16 +4,6 @@ Interactive map application for exploring North Macedonia — browse monuments, 
 
 ![Macedonia Explorer](docs/product-shot.png)
 
-## ⚙️ Tech Stack
-
-- **React 18 + TypeScript** - Modern React with type safety
-- **Vite** - Fast development server and optimized builds
-- **Tailwind CSS + shadcn/ui** - Utility-first styling with premium components
-- **React Router** - Client-side routing with lazy loading
-- **Redux Toolkit + RTK Query** - State management and data fetching
-- **React Testing Library + Jest** - Comprehensive testing framework
-- **Custom i18n** - Context-based internationalization (zero dependencies)
-
 ## ✨ Features
 
 - **Multi-language** — English / Macedonian toggle with translated UI, filters, and location names
@@ -25,7 +15,34 @@ Interactive map application for exploring North Macedonia — browse monuments, 
 - **Performance** — Route-based code splitting, lazy loading, component memoization
 - **Testing** — Comprehensive test suite with Jest and React Testing Library
 
-##  Project Structure
+## 🎨 Design and UI
+
+- **Palette:** Macedonia-inspired color scheme with royal purple accent, sunset orange, lake blue, mountain green, and terracotta
+- **Background:** Elegant gradient with large blurred circles (purple top-left, blue bottom-right) for depth
+- **Navigation:** Modern glass morphism header with fixed positioning and purple theme
+- **Components:** Glass panels, badge pills, section cards with purple accent colors
+- **Tokens:** All colors defined as HSL CSS variables in `index.css`
+- **Favicon:** Purple map pin icon matching the theme
+
+### Recent Enhancements
+- **Modern Design System**: Macedonia-inspired color palette (royal purple, sunset orange, lake blue, mountain green, terracotta)
+- **Glass Morphism UI**: Frosted glass navigation with backdrop blur effects
+- **Sophisticated Animations**: Inside-to-outside hover effects with smooth transitions
+- **Enhanced Background**: Large blurred circles creating depth and visual interest
+- **Purple Theme**: Consistent purple accent colors throughout the application
+- **Fixed Header**: Always-visible navigation with proper content spacing
+
+## ⚙️ Tech Stack
+
+- **React 18 + TypeScript** - Modern React with type safety
+- **Vite** - Fast development server and optimized builds
+- **Tailwind CSS + shadcn/ui** - Utility-first styling with premium components
+- **React Router** - Client-side routing with lazy loading
+- **Redux Toolkit + RTK Query** - State management and data fetching
+- **React Testing Library + Jest** - Comprehensive testing framework
+- **Custom i18n** - Context-based internationalization (zero dependencies)
+
+## 🗂️ Project Structure
 
 ```
 src/
@@ -283,6 +300,14 @@ Register new types in `src/constants/locationTypes.ts` — they appear in the UI
 - **Tokens:** All colors defined as HSL CSS variables in `index.css`
 - **Favicon:** Purple map pin icon matching the theme
 
+### Recent Enhancements
+- **Modern Design System**: Macedonia-inspired color palette (royal purple, sunset orange, lake blue, mountain green, terracotta)
+- **Glass Morphism UI**: Frosted glass navigation with backdrop blur effects
+- **Sophisticated Animations**: Inside-to-outside hover effects with smooth transitions
+- **Enhanced Background**: Large blurred circles creating depth and visual interest
+- **Purple Theme**: Consistent purple accent colors throughout the application
+- **Fixed Header**: Always-visible navigation with proper content spacing
+
 
 
 
@@ -326,13 +351,13 @@ Register new types in `src/constants/locationTypes.ts` — they appear in the UI
 - **Fixed Header**: Always-visible navigation with proper content spacing
 
 
-## � Documentation
+## 📋 Documentation
 
 - **[docs/TESTING.md](./docs/TESTING.md)** - Comprehensive testing documentation
 - **[docs/ContentManagement.md](./docs/ContentManagement.md)** - Location and translation workflows
 - **[docs/Design System](./docs/DesignSystem.md)** - Complete UI/UX guidelines and components
 - **[docs/Future Roadmap](./docs/FutureRoadmap.md)** - Planned features and development phases
 
-## �📄 License
+## 📜 License
 
 All rights reserved.
