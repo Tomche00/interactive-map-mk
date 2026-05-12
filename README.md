@@ -45,9 +45,6 @@ src/
     └── flag-mk.png
 ```
 
-## ✨ Features
-
-- **Interactive map** with 262+ curated locations on a custom map
 - **Multi-language** — English / Macedonian toggle with translated UI, filters, and location names
 - **Category filters** — Monuments, Cities, Nature, Camping, Recreation, Restaurants, Hotels, Lakes & Rivers
 - **Auto-detection** — new location types from data appear automatically in the legend
@@ -88,45 +85,6 @@ Enterprise-level QA and CI/CD pipeline with comprehensive testing and deployment
 - **[docs/TESTING.md](./docs/TESTING.md)** - Comprehensive testing documentation
 
 ## 🎨 Design & UX
-
-- **Macedonia-inspired theme** with royal purple accents
-- **Glass morphism effects** with backdrop blur and transparency
-- **Sophisticated animations** and micro-interactions
-- **Mobile-first responsive** design with desktop enhancement
-- **Accessibility-first** approach with WCAG 2.1 AA compliance
-
-## 📊 Project Statistics
-
-- **262+ locations** across Macedonia
-- **11 location types** with auto-detection
-- **2 languages** (English/Macedonian) with full translation
-- **90%+ test coverage** with comprehensive test suite
-- **Multi-platform CI/CD** with automated quality gates
-│   └── Navigation.tsx         # Top nav bar with language toggle
-├── hooks/
-│   ├── index.ts              # Hook exports
-│   ├── useAppDispatch.ts     # Typed Redux dispatch hook
-│   ├── useAppSelector.ts     # Typed Redux selector hook
-│   └── useMapInteractions.ts # Tooltip state and navigation logic
-├── contexts/
-│   └── SearchContext.tsx     # Search state management context
-├── components/__tests__/
-│   └── CustomMapRedux.test.tsx # Component tests
-├── types/
-│   └── location.ts           # Shared Location interface (name + nameMk)
-├── constants/
-│   └── locationTypes.ts      # Category config (color, icon, label, order, presets)
-├── data/
-│   └── locations.json       # Location data (262+ entries)
-├── pages/
-│   ├── Index.tsx             # Lazy-loaded main map page
-│   ├── About.tsx             # Lazy-loaded about page
-│   └── Rent.tsx              # Lazy-loaded rent page
-├── docs/
-│   └── TESTING.md            # Comprehensive testing documentation
-├── setupTests.ts            # Jest configuration and mocks
-└── index.css               # Design tokens
-```
 
 ## Adding Locations
 
