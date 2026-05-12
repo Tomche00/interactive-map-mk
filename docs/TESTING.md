@@ -4,22 +4,6 @@
 
 This document outlines comprehensive testing strategy for Macedonia Explorer interactive map application. It provides guidance for developers and QA teams on test coverage, scenarios, and best practices.
 
-## Table of Contents
-
-1. [🏗️ Testing Architecture](#testing-architecture)
-2. [🔍 Test Types & Coverage Areas](#test-types--coverage-areas)
-3. [📊 Current Test Coverage](#current-test-coverage)
-4. [� Testing Implementation Status](#testing-implementation-status)
-5. [� Test Scenarios](#test-scenarios)
-6. [📚 Testing Guidelines](#testing-guidelines)
-7. [🤡 Mock Strategy](#mock-strategy)
-8. [🔄 CI/CD Integration](#cicd-integration)
-9. [🎯 Coverage Targets](#coverage-targets)
-10. [🚀 Running Tests](#running-tests)
-11. [🐛 Debugging Tests](#debugging-tests)
-12. [🗺️ Future Testing Roadmap](#future-testing-roadmap)
-13. [🤝 Contributing to Tests](#contributing-to-tests)
-
 ## Testing Architecture
 
 ### 🛠️ Technology Stack
