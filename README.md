@@ -4,6 +4,47 @@ Interactive map application for exploring North Macedonia — browse monuments, 
 
 ![Macedonia Explorer](docs/product-shot.png)
 
+## 📁 Project Structure
+
+```
+src/
+├── store/                    # Redux store configuration
+│   ├── index.ts            # Store setup and middleware
+│   ├── api/                # RTK Query API definitions
+│   │   └── locationsApi.ts # Location data fetching
+│   ├── slices/             # Redux state slices
+│   │   ├── filtersSlice.ts  # Filter state management
+│   │   └── uiSlice.ts      # UI state (selected/hovered)
+│   └── selectors/          # Memoized data selectors
+│       └── locationSelectors.ts
+├── i18n/                   # Internationalization
+│   ├── translations.ts      # EN + MK translations
+│   └── LanguageContext.tsx # Language provider
+├── components/               # React components
+│   ├── ui/                # Reusable UI components
+│   │   └── lazy-image.tsx     # Intersection Observer lazy loading component
+│   ├── map/                # Map-specific components
+│   │   ├── MapHeader.tsx      # Page title, stats, and badge pills
+│   │   ├── MapFilters.tsx     # Desktop sidebar + mobile chip filters (React.memo optimized)
+│   │   └── MapPins.tsx      # Pin rendering and coordinate mapping (React.memo optimized)
+│   ├── CustomMapRedux.tsx     # Redux-powered main map orchestrator (useMemo optimized)
+│   ├── LocationTooltip.tsx    # Hover tooltip with navigation
+│   ├── LocationDetailSheet.tsx # Mobile sheet for location details
+│   └── Navigation.tsx         # Top nav bar with language toggle
+├── hooks/                   # Custom React hooks
+│   ├── index.ts            # Hook exports
+│   ├── useMapInteractions.ts # Map interaction handlers
+│   └── use-mobile.tsx       # Mobile detection hook
+├── constants/               # Application constants
+│   └── locationTypes.ts
+├── types/                   # TypeScript type definitions
+│   └── location.ts
+└── assets/                  # Static assets
+    ├── macedonia-map-modern.jpg
+    ├── flag-en.png
+    └── flag-mk.png
+```
+
 ## ✨ Features
 
 - **Interactive map** with 262+ curated locations on a custom map
@@ -20,22 +61,11 @@ Interactive map application for exploring North Macedonia — browse monuments, 
 
 - React 18 + TypeScript
 - Vite
-- Tailwind CSS + shadcn/ui
-- React Router
-- Redux Toolkit + RTK Query
-- React Testing Library + Jest
-- Custom i18n (context-based, zero dependencies)
 
-## Getting Started
+## 🧪 Testing
 
 ```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Run tests
+# Run unit tests
 npm test
 
 # Run tests with coverage
@@ -45,33 +75,55 @@ npm run test:coverage
 npm run test:watch
 ```
 
-## Project Structure
+## 🚀 CI/CD Pipeline
 
-```
-src/
-├── store/
-│   ├── index.ts               # Redux store configuration
-│   ├── api/
-│   │   └── locationsApi.ts    # RTK Query API for location data
-│   ├── slices/
-│   │   ├── filtersSlice.ts     # Filter state management
-│   │   └── uiSlice.ts         # UI state (selected/hovered locations)
-│   └── selectors/
-│       └── locationSelectors.ts  # Performance-optimized data processing utilities
-├── i18n/
-│   ├── translations.ts         # EN + MK translation strings
-│   └── LanguageContext.tsx    # React context provider + useLanguage hook
-├── components/
-│   ├── ui/
-│   │   └── lazy-image.tsx     # Intersection Observer lazy loading component
-│   ├── map/
-│   │   ├── MapHeader.tsx      # Page title, stats, and badge pills
-│   │   ├── MapFilters.tsx     # Desktop sidebar + mobile chip filters (React.memo optimized)
-│   │   └── MapPins.tsx      # Pin rendering and coordinate mapping (React.memo optimized)
-│   ├── CustomMapRedux.tsx     # Redux-powered main map orchestrator (useMemo optimized)
-│   ├── CustomMap.tsx          # Legacy component (deprecated)
-│   ├── LocationTooltip.tsx    # Hover tooltip with navigation
-│   ├── LocationDetailSheet.tsx # Mobile sheet for location details
+Enterprise-level QA and CI/CD pipeline with comprehensive testing and deployment automation.
+
+📖 **For detailed QA documentation**, see [docs/QA.md](./docs/QA.md)
+
+### Key Features
+- **Multi-environment testing** (Ubuntu, Windows, macOS)
+- **Cross-browser testing** (Chrome, Firefox, Safari)
+- **Automated quality checks** (ESLint, TypeScript, Security)
+- **Performance monitoring** (Lighthouse, Bundle analysis)
+- **Automated deployments** (Staging → Production)
+- **Health checks** and rollback capabilities
+
+## 📋 Documentation
+
+- **[docs/Design System](./docs/DesignSystem.md)** - Complete UI/UX guidelines and components
+- **[docs/Future Roadmap](./docs/FutureRoadmap.md)** - Planned features and development phases
+- **[docs/QA.md](./docs/QA.md)** - Comprehensive testing and deployment documentation
+
+## 🎨 Design & UX
+
+- **Macedonia-inspired theme** with royal purple accents
+- **Glass morphism effects** with backdrop blur and transparency
+- **Sophisticated animations** and micro-interactions
+- **Mobile-first responsive** design with desktop enhancement
+- **Accessibility-first** approach with WCAG 2.1 AA compliance
+
+## 🏆 Recent Achievements
+
+### ✅ Phase 1: Testing Infrastructure + Redux Migration (Completed)
+- Complete Redux Toolkit migration with RTK Query
+- Comprehensive testing setup with Jest and React Testing Library
+- Performance-optimized selectors and memoization
+- Type-safe Redux architecture
+
+### ✅ Phase 2: Performance Optimization + Code Splitting (Completed)
+- Route-based code splitting with React.lazy()
+- Image lazy loading with Intersection Observer
+- Component memoization with React.memo()
+- Redux optimization with utility functions
+
+## 📊 Project Statistics
+
+- **262+ locations** across Macedonia
+- **11 location types** with auto-detection
+- **2 languages** (English/Macedonian) with full translation
+- **90%+ test coverage** with comprehensive test suite
+- **Multi-platform CI/CD** with automated quality gates
 │   └── Navigation.tsx         # Top nav bar with language toggle
 ├── hooks/
 │   ├── index.ts              # Hook exports
