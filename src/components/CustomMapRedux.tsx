@@ -113,7 +113,7 @@ const CustomMapRedux = () => {
 
   if (isLoading) {
     return (
-      <div className="w-full min-h-[calc(100vh-3.5rem)] bg-background flex items-center justify-center">
+      <div className="w-full min-h-[calc(100vh-3.5rem)] flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
           <p className="text-muted-foreground">Loading locations...</p>
@@ -124,7 +124,7 @@ const CustomMapRedux = () => {
 
   if (error) {
     return (
-      <div className="w-full min-h-[calc(100vh-3.5rem)] bg-background flex items-center justify-center">
+      <div className="w-full min-h-[calc(100vh-3.5rem)] flex items-center justify-center">
         <div className="text-center">
           <p className="text-destructive mb-2">Error loading locations</p>
           <p className="text-muted-foreground text-sm">Please try again later</p>
@@ -136,7 +136,7 @@ const CustomMapRedux = () => {
   const noVisible = filteredLocations.length === 0;
 
   return (
-    <div className="w-full min-h-[calc(100vh-3.5rem)] bg-background">
+    <div className="w-full min-h-[calc(100vh-3.5rem)]">
       <MapHeader
         filteredLocations={filteredLocations}
         visibleTypes={visibleTypes}

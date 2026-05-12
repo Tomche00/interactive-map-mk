@@ -4,13 +4,13 @@
   
   <!-- Main pin body -->
   <path d="M12 2C7.58 2 4 5.58 4 10c0 5.25 8 12 8 12s8-6.75 8-12c0-4.42-3.58-8-8-8z" 
-        fill="#4285f4"/>
+        fill="#8b5cf6"/>
   
   <!-- Inner circle -->
   <circle cx="12" cy="10" r="2.5" fill="#ffffff" opacity="0.9"/>
   
   <!-- Center dot -->
-  <circle cx="12" cy="10" r="1.2" fill="#1a73e8"/>
+  <circle cx="12" cy="10" r="1.2" fill="#7c3aed"/>
   
   <!-- Highlight -->
   <ellipse cx="10" cy="6" rx="2" ry="1" fill="#ffffff" opacity="0.3"/>

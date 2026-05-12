@@ -26,32 +26,36 @@ const App = () => (
           <SearchProvider>
             <Toaster />
             <Sonner />
-            <BrowserRouter>
-              <Navigation />
-              <Routes>
-                <Route path="/" element={
-                  <Suspense fallback={<div className="flex items-center justify-center min-h-[400px]">Loading map...</div>}>
-                    <Index />
-                  </Suspense>
-                } />
-                <Route path="/rent" element={
-                  <Suspense fallback={<div className="flex items-center justify-center min-h-[400px]">Loading...</div>}>
-                    <Rent />
-                  </Suspense>
-                } />
-                <Route path="/about" element={
-                  <Suspense fallback={<div className="flex items-center justify-center min-h-[400px]">Loading...</div>}>
-                    <About />
-                  </Suspense>
-                } />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={
-                  <Suspense fallback={<div className="flex items-center justify-center min-h-[400px]">Loading...</div>}>
-                    <NotFound />
-                  </Suspense>
-                } />
-              </Routes>
-            </BrowserRouter>
+            <div className="min-h-screen bg-gradient">
+              <BrowserRouter>
+                <Navigation />
+                <main className="w-full pt-14">
+                  <Routes>
+                    <Route path="/" element={
+                      <Suspense fallback={<div className="flex items-center justify-center min-h-[400px]">Loading map...</div>}>
+                        <Index />
+                      </Suspense>
+                    } />
+                    <Route path="/rent" element={
+                      <Suspense fallback={<div className="flex items-center justify-center min-h-[400px]">Loading...</div>}>
+                        <Rent />
+                      </Suspense>
+                    } />
+                    <Route path="/about" element={
+                      <Suspense fallback={<div className="flex items-center justify-center min-h-[400px]">Loading...</div>}>
+                        <About />
+                      </Suspense>
+                    } />
+                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                    <Route path="*" element={
+                      <Suspense fallback={<div className="flex items-center justify-center min-h-[400px]">Loading...</div>}>
+                        <NotFound />
+                      </Suspense>
+                    } />
+                  </Routes>
+                </main>
+              </BrowserRouter>
+            </div>
           </SearchProvider>
         </LanguageProvider>
       </TooltipProvider>

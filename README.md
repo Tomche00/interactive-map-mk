@@ -194,10 +194,12 @@ Each location in `src/data/locations.json` supports optional `nameMk` and `descr
 
 ## Design
 
-- **Palette:** Cool blue-gray background with teal accent (`hsl(172, 50%, 40%)`)
-- **Navigation:** Frosted glass with subtle gradient tint
-- **Components:** Glass panels, badge pills, section cards
+- **Palette:** Macedonia-inspired color scheme with royal purple accent, sunset orange, lake blue, mountain green, and terracotta
+- **Background:** Elegant gradient with large blurred circles (purple top-left, blue bottom-right) for depth
+- **Navigation:** Modern glass morphism header with fixed positioning and purple theme
+- **Components:** Glass panels, badge pills, section cards with purple accent colors
 - **Tokens:** All colors defined as HSL CSS variables in `index.css`
+- **Favicon:** Purple map pin icon matching the theme
 
 ## Testing
 
