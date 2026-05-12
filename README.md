@@ -4,6 +4,35 @@ Interactive map application for exploring North Macedonia — browse monuments, 
 
 ![Macedonia Explorer](docs/product-shot.png)
 
+## Tech Stack
+
+- **React 18 + TypeScript** - Modern React with type safety
+- **Vite** - Fast development server and optimized builds
+- **Tailwind CSS + shadcn/ui** - Utility-first styling with premium components
+- **React Router** - Client-side routing with lazy loading
+- **Redux Toolkit + RTK Query** - State management and data fetching
+- **React Testing Library + Jest** - Comprehensive testing framework
+- **Custom i18n** - Context-based internationalization (zero dependencies)
+
+## Features
+
+- **Multi-language** — English / Macedonian toggle with translated UI, filters, and location names
+- **Category filters** — Monuments, Cities, Nature, Camping, Recreation, Restaurants, Hotels, Lakes & Rivers
+- **Auto-detection** — new location types from data appear automatically in the legend
+- **Location details** — hover any pin for name, description, coordinates, and Google Maps navigation
+- **Responsive** — desktop sidebar filters, mobile-optimized chip filters
+- **Premium UI** — Macedonia-inspired purple theme, glass morphism navigation, sophisticated animations
+- **Performance** — Route-based code splitting, lazy loading, component memoization
+- **Testing** — Comprehensive test suite with Jest and React Testing Library
+
+## 📋 Documentation
+
+- **[docs/QA.md](./docs/QA.md)** - Comprehensive testing and deployment documentation
+- **[docs/ContentManagement.md](./docs/ContentManagement.md)** - Location and translation workflows
+- **[docs/Design System](./docs/DesignSystem.md)** - Complete UI/UX guidelines and components
+- **[docs/Future Roadmap](./docs/FutureRoadmap.md)** - Planned features and development phases
+- **[docs/TESTING.md](./docs/TESTING.md)** - Comprehensive testing documentation
+
 ## 📁 Project Structure
 
 ```
@@ -45,24 +74,8 @@ src/
     └── flag-mk.png
 ```
 
-- **Multi-language** — English / Macedonian toggle with translated UI, filters, and location names
-- **Category filters** — Monuments, Cities, Nature, Camping, Recreation, Restaurants, Hotels, Lakes & Rivers
-- **Auto-detection** — new location types from data appear automatically in the legend
-- **Location details** — hover any pin for name, description, coordinates, and Google Maps navigation
-- **Responsive** — desktop sidebar filters, mobile-optimized chip filters
-- **Premium UI** — Macedonia-inspired purple theme, glass morphism navigation, sophisticated animations
-- **Performance** — Route-based code splitting, lazy loading, component memoization
-- **Testing** — Comprehensive test suite with Jest and React Testing Library
 
-## Tech Stack
 
-- **React 18 + TypeScript** - Modern React with type safety
-- **Vite** - Fast development server and optimized builds
-- **Tailwind CSS + shadcn/ui** - Utility-first styling with premium components
-- **React Router** - Client-side routing with lazy loading
-- **Redux Toolkit + RTK Query** - State management and data fetching
-- **React Testing Library + Jest** - Comprehensive testing framework
-- **Custom i18n** - Context-based internationalization (zero dependencies)
 
 ## 🚀 CI/CD Pipeline
 
@@ -75,127 +88,6 @@ Enterprise-level QA and CI/CD pipeline with comprehensive testing and deployment
 - **Performance monitoring** (Lighthouse, Bundle analysis)
 - **Automated deployments** (Staging → Production)
 - **Health checks** and rollback capabilities
-
-## 📋 Documentation
-
-- **[docs/QA.md](./docs/QA.md)** - Comprehensive testing and deployment documentation
-- **[docs/ContentManagement.md](./docs/ContentManagement.md)** - Location and translation workflows
-- **[docs/Design System](./docs/DesignSystem.md)** - Complete UI/UX guidelines and components
-- **[docs/Future Roadmap](./docs/FutureRoadmap.md)** - Planned features and development phases
-- **[docs/TESTING.md](./docs/TESTING.md)** - Comprehensive testing documentation
-
-## 🎨 Design & UX
-
-## Adding Locations
-
-Add entries to `src/data/locations.json`:
-
-```json
-{
-  "name": "Location Name",
-  "nameMk": "Име на Локација",
-  "lat": 41.9981,
-  "lng": 21.4254,
-  "type": "monument",
-  "description": "Brief description"
-}
-```
-
-Register new types in `src/constants/locationTypes.ts` — they appear in the UI automatically.
-
-## Multi-Language (i18n)
-
-The app uses a lightweight context-based i18n system with zero external dependencies.
-
-### How It Works
-
-1. **LanguageContext** (`src/i18n/LanguageContext.tsx`) wraps the app and provides:
-   - `language` — current language (`'en'` or `'mk'`)
-   - `t` — translation object for the active language
-   - `toggleLanguage()` — switches between EN ↔ MK and persists to `localStorage`
-
-2. **Translation strings** live in `src/i18n/translations.ts` — a single file with `en` and `mk` objects sharing the same key structure.
-
-3. **Flag toggle** (🇬🇧 / 🇲🇰) in the navbar shows the current language and switches on click.
-
-### Using Translations in Components
-
-```tsx
-import { useLanguage } from '@/i18n/LanguageContext';
-
-const MyComponent = () => {
-  const { t, language } = useLanguage();
-  return <h1>{t.map.title}</h1>;
-};
-```
-
-### Adding New UI Translations
-
-1. Open `src/i18n/translations.ts`
-2. Add your key to both `en` and `mk` objects:
-
-```ts
-en: {
-  mySection: {
-    greeting: 'Welcome',
-  }
-},
-mk: {
-  mySection: {
-    greeting: 'Добредојдовте',
-  }
-}
-```
-
-3. Use in component: `t.mySection.greeting`
-
-### Translating Location Pin Names
-
-Each location in `src/data/locations.json` supports optional `nameMk` and `descriptionMk` fields for Macedonian translations:
-
-```json
-{
-  "id": "ohrid",
-  "name": "Ohrid",
-  "nameMk": "Охрид",
-  "description": "A lakeside city with UNESCO heritage...",
-  "descriptionMk": "Град покрај езеро со UNESCO наследство...",
-  "type": "city",
-  "latitude": 41.1231,
-  "longitude": 20.8016,
-  "coordinates": [20.8016, 41.1231]
-}
-```
-
-**Rules:**
-- `name` (required) — always the English name, used as default
-- `nameMk` (optional) — Macedonian name shown in tooltips when language is MK
-- `description` (required) — English description shown in tooltips
-- `descriptionMk` (optional) — Macedonian description shown in tooltips when language is MK
-- If `nameMk` or `descriptionMk` is missing, the English version is shown in both languages
-
-### Adding a New Language
-
-1. Add the locale code to the `Language` type in `translations.ts`: `type Language = 'en' | 'mk' | 'sq';`
-2. Add a full translation object matching the `en` structure
-3. Update `toggleLanguage()` in `LanguageContext.tsx` to cycle through languages
-4. Add the corresponding flag emoji to the navbar toggle
-5. Optionally add `nameSq` (or similar) to `Location` interface and `locations.json`
-
-## Design
-
-- **Palette:** Macedonia-inspired color scheme with royal purple accent, sunset orange, lake blue, mountain green, and terracotta
-- **Background:** Elegant gradient with large blurred circles (purple top-left, blue bottom-right) for depth
-- **Navigation:** Modern glass morphism header with fixed positioning and purple theme
-- **Components:** Glass panels, badge pills, section cards with purple accent colors
-- **Tokens:** All colors defined as HSL CSS variables in `index.css`
-- **Favicon:** Purple map pin icon matching the theme
-
-## Testing
-
-📋 **[View Comprehensive Testing Documentation](docs/TESTING.md)**
-
-The project includes a complete testing setup with Jest and React Testing Library, covering unit tests, integration tests, and performance testing scenarios.
 
 ## Redux Architecture
 
@@ -304,6 +196,118 @@ export const getFilteredLocations = (locations, visibleTypes, searchQuery) =>
 - `components/map/MapFilters.tsx` - React.memo() optimized
 - `components/CustomMapRedux.tsx` - useMemo() optimized
 - `store/selectors/locationSelectors.ts` - Data processing utilities
+
+## 🎨 Design & UX
+
+## Adding Locations
+
+Add entries to `src/data/locations.json`:
+
+```json
+{
+  "name": "Location Name",
+  "nameMk": "Име на Локација",
+  "lat": 41.9981,
+  "lng": 21.4254,
+  "type": "monument",
+  "description": "Brief description"
+}
+```
+
+Register new types in `src/constants/locationTypes.ts` — they appear in the UI automatically.
+
+## Multi-Language (i18n)
+
+The app uses a lightweight context-based i18n system with zero external dependencies.
+
+### How It Works
+
+1. **LanguageContext** (`src/i18n/LanguageContext.tsx`) wraps the app and provides:
+   - `language` — current language (`'en'` or `'mk'`)
+   - `t` — translation object for the active language
+   - `toggleLanguage()` — switches between EN ↔ MK and persists to `localStorage`
+
+2. **Translation strings** live in `src/i18n/translations.ts` — a single file with `en` and `mk` objects sharing the same key structure.
+
+3. **Flag toggle** (🇬🇧 / 🇲🇰) in the navbar shows the current language and switches on click.
+
+### Using Translations in Components
+
+```tsx
+import { useLanguage } from '@/i18n/LanguageContext';
+
+const MyComponent = () => {
+  const { t, language } = useLanguage();
+  return <h1>{t.map.title}</h1>;
+};
+```
+
+### Adding New UI Translations
+
+1. Open `src/i18n/translations.ts`
+2. Add your key to both `en` and `mk` objects:
+
+```ts
+en: {
+  mySection: {
+    greeting: 'Welcome',
+  }
+},
+mk: {
+  mySection: {
+    greeting: 'Добредојдовте',
+  }
+}
+```
+
+3. Use in component: `t.mySection.greeting`
+
+### Translating Location Pin Names
+
+Each location in `src/data/locations.json` supports optional `nameMk` and `descriptionMk` fields for Macedonian translations:
+
+```json
+{
+  "id": "ohrid",
+  "name": "Ohrid",
+  "nameMk": "Охрид",
+  "description": "A lakeside city with UNESCO heritage...",
+  "descriptionMk": "Град покрај езеро со UNESCO наследство...",
+  "type": "city",
+  "latitude": 41.1231,
+  "longitude": 20.8016,
+  "coordinates": [20.8016, 41.1231]
+}
+```
+
+**Rules:**
+- `name` (required) — always the English name, used as default
+- `nameMk` (optional) — Macedonian name shown in tooltips when language is MK
+- `description` (required) — English description shown in tooltips
+- `descriptionMk` (optional) — Macedonian description shown in tooltips when language is MK
+- If `nameMk` or `descriptionMk` is missing, the English version is shown in both languages
+
+### Adding a New Language
+
+1. Add the locale code to the `Language` type in `translations.ts`: `type Language = 'en' | 'mk' | 'sq';`
+2. Add a full translation object matching the `en` structure
+3. Update `toggleLanguage()` in `LanguageContext.tsx` to cycle through languages
+4. Add the corresponding flag emoji to the navbar toggle
+5. Optionally add `nameSq` (or similar) to `Location` interface and `locations.json`
+
+## Design
+
+- **Palette:** Macedonia-inspired color scheme with royal purple accent, sunset orange, lake blue, mountain green, and terracotta
+- **Background:** Elegant gradient with large blurred circles (purple top-left, blue bottom-right) for depth
+- **Navigation:** Modern glass morphism header with fixed positioning and purple theme
+- **Components:** Glass panels, badge pills, section cards with purple accent colors
+- **Tokens:** All colors defined as HSL CSS variables in `index.css`
+- **Favicon:** Purple map pin icon matching the theme
+
+
+
+
+
 
 ## 🗺️ Future Roadmap
 
