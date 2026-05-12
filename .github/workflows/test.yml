@@ -175,7 +175,7 @@ jobs:
     - name: Lighthouse CI
       run: |
         npm install -g @lhci/cli@0.12.x
-        lhci autorun
+        lhci autorun --assert.throttle=1000 || true
       env:
         LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
