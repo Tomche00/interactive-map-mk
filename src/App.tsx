@@ -33,6 +33,7 @@ const App = () => (
                   <Routes>
                     <Route path="/" element={
                       <Suspense fallback={<div className="flex items-center justify-center min-h-[400px]">Loading map...</div>}>
+
                         <Index />
                       </Suspense>
                     } />

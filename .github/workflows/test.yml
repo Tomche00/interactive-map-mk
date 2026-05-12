@@ -73,7 +73,8 @@ jobs:
     name: Test Suite
     runs-on: ${{ matrix.os }}
     needs: quality-checks
-    
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     strategy:
       fail-fast: false
       matrix:
@@ -135,6 +136,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: test-matrix
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     
     steps:
     - name: Checkout code
@@ -170,13 +174,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: [quality-checks, test-matrix, performance]
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
-    
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     environment: 
       name: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
-    
-    env:
-      DEPLOY_URL: ${{ github.ref == 'refs/heads/main' && secrets.PROD_URL || secrets.STAGING_URL }}
-
+      url: ${{ github.ref == 'refs/heads/main' && secrets.PROD_URL || secrets.STAGING_URL }}
       
     steps:
     - name: Checkout code
@@ -238,6 +240,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: deploy
     if: failure() && github.ref == 'refs/heads/main'
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     
     steps:
     - name: Automatic Rollback
@@ -254,6 +258,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [quality-checks, test-matrix, performance]
     if: always()
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     
     steps:
     - name: Generate Summary Report
