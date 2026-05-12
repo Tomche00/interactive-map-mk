@@ -59,21 +59,15 @@ src/
 
 ## Tech Stack
 
-- React 18 + TypeScript
-- Vite
+- **React 18 + TypeScript** - Modern React with type safety
+- **Vite** - Fast development server and optimized builds
+- **Tailwind CSS + shadcn/ui** - Utility-first styling with premium components
+- **React Router** - Client-side routing with lazy loading
+- **Redux Toolkit + RTK Query** - State management and data fetching
+- **React Testing Library + Jest** - Comprehensive testing framework
+- **Custom i18n** - Context-based internationalization (zero dependencies)
 
-## 🧪 Testing
-
-```bash
-# Run unit tests
-npm test
-
-# Run tests with coverage
-npm run test:coverage
-
-# Watch tests during development
-npm run test:watch
-```
+## 🚀 CI/CD Pipeline
 
 ## 🚀 CI/CD Pipeline
 
@@ -91,9 +85,11 @@ Enterprise-level QA and CI/CD pipeline with comprehensive testing and deployment
 
 ## 📋 Documentation
 
+- **[docs/QA.md](./docs/QA.md)** - Comprehensive testing and deployment documentation
+- **[docs/ContentManagement.md](./docs/ContentManagement.md)** - Location and translation workflows
 - **[docs/Design System](./docs/DesignSystem.md)** - Complete UI/UX guidelines and components
 - **[docs/Future Roadmap](./docs/FutureRoadmap.md)** - Planned features and development phases
-- **[docs/QA.md](./docs/QA.md)** - Comprehensive testing and deployment documentation
+- **[docs/TESTING.md](./docs/TESTING.md)** - Comprehensive testing documentation
 
 ## 🎨 Design & UX
 

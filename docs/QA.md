@@ -149,13 +149,6 @@ npm run test:integration
 npm run test:e2e
 
 # Type checking
-npm run type-check
-
-# Linting
-npm run lint
-
-# Build analysis
-npm run build:analyze
 ```
 
 ### Pre-commit Checks

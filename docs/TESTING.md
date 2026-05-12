@@ -27,29 +27,42 @@ This document outlines the comprehensive testing strategy for the Macedonia Expl
 ### Test Structure
 ```
 src/
-├── components/
-│   └── __tests__/
-│       ├── CustomMapRedux.test.tsx     # ✅ Component integration tests (IMPLEMENTED)
-│       ├── MapHeader.test.tsx          # 🔄 Header component tests (PENDING)
-│       ├── MapFilters.test.tsx         # 🔄 Filter component tests (PENDING)
-│       └── LocationTooltip.test.tsx   # 🔄 Tooltip component tests (PENDING)
-├── store/
-│   └── __tests__/
-│       ├── filtersSlice.test.ts        # 🔄 Redux reducer tests (PENDING)
-│       ├── uiSlice.test.ts             # 🔄 UI state tests (PENDING)
-│       └── locationsApi.test.ts        # 🔄 API layer tests (PENDING)
-├── hooks/
-│   └── __tests__/
-│       ├── useMapInteractions.test.ts  # 🔄 Custom hook tests (PENDING)
-│       └── useLanguage.test.ts        # 🔄 Language hook tests (PENDING)
-├── contexts/
-│   └── __tests__/
-│       ├── SearchContext.test.ts       # 🔄 Search context tests (PENDING)
-│       └── LanguageContext.test.ts     # 🔄 Language context tests (PENDING)
-└── utils/
-    └── __tests__/
-        ├── locationUtils.test.ts       # 🔄 Utility function tests (PENDING)
-        └── mapUtils.test.ts            # 🔄 Map calculation tests (PENDING)
+├── store/                    # Redux store configuration
+│   ├── index.ts            # Store setup and middleware
+│   ├── api/                # RTK Query API definitions
+│   │   └── locationsApi.ts # Location data fetching
+│   ├── slices/             # Redux state slices
+│   │   ├── filtersSlice.ts  # Filter state management
+│   │   └── uiSlice.ts      # UI state (selected/hovered)
+│   └── selectors/          # Memoized data selectors
+│       └── locationSelectors.ts
+├── i18n/                   # Internationalization
+│   ├── translations.ts      # EN + MK translations
+│   └── LanguageContext.tsx # Language provider
+├── components/               # React components
+│   ├── ui/                # Reusable UI components
+│   ├── map/                # Map-specific components
+│   │   ├── MapHeader.tsx      # Page title, stats, and badge pills
+│   │   ├── MapFilters.tsx     # Desktop sidebar + mobile chip filters
+│   │   └── MapPins.tsx      # Pin rendering and coordinate mapping
+│   ├── CustomMapRedux.tsx     # Redux-powered main map component
+│   ├── LocationTooltip.tsx    # Hover tooltip with navigation
+│   ├── LocationDetailSheet.tsx # Mobile sheet for location details
+│   └── Navigation.tsx         # Top nav bar with language toggle
+├── hooks/                   # Custom React hooks
+│   ├── index.ts            # Hook exports
+│   ├── useMapInteractions.ts # Map interaction handlers
+│   └── use-mobile.tsx       # Mobile detection hook
+├── constants/               # Application constants
+│   └── locationTypes.ts
+├── types/                   # TypeScript type definitions
+│   └── location.ts
+├── data/                    # Location data
+│   └── locations.json    # 262+ Macedonian locations
+└── assets/                  # Static assets
+    ├── macedonia-map-modern.jpg
+    ├── flag-en.png
+    └── flag-mk.png
 ```
 
 **Legend:**
