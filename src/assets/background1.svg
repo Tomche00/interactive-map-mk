@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 28.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1440 1265" style="enable-background:new 0 0 1440 1265;" xml:space="preserve">
+<style type="text/css">
+	.st0{filter:url(#b);}
+	.st1{fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_1_);}
+	.st2{filter:url(#d);}
+	.st3{fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_00000062153464417536681370000006721903284187744651_);}
+	.st4{filter:url(#e);}
+	.st5{fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_00000170254749351208506850000013150864696243697799_);}
+	.st6{filter:url(#g);}
+	.st7{fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_00000176040804265003023320000016475770051109371019_);}
+</style>
+<filter  filterUnits="objectBoundingBox" height="475%" id="g" width="147.2%" x="-23.6%" y="-187.5%">
+	<feGaussianBlur  in="SourceGraphic" stdDeviation="50"></feGaussianBlur>
+</filter>
+<filter  filterUnits="objectBoundingBox" height="475%" id="e" width="147.2%" x="-23.6%" y="-187.5%">
+	<feGaussianBlur  in="SourceGraphic" stdDeviation="50"></feGaussianBlur>
+</filter>
+<filter  filterUnits="objectBoundingBox" height="475%" id="d" width="147.2%" x="-23.6%" y="-187.5%">
+	<feGaussianBlur  in="SourceGraphic" stdDeviation="50"></feGaussianBlur>
+</filter>
+<filter  filterUnits="objectBoundingBox" height="168.4%" id="b" width="135.1%" x="-17.6%" y="-34.2%">
+	<feGaussianBlur  in="SourceGraphic" stdDeviation="50"></feGaussianBlur>
+</filter>
+<g class="st0">
+	
+		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-25.0428" y1="932.9886" x2="-30.0321" y2="932.9886" gradientTransform="matrix(-264.3546 0 0 -438.5 -6639.6138 409301.5)">
+		<stop  offset="0" style="stop-color:#6366F1"/>
+		<stop  offset="1" style="stop-color:#6366F1;stop-opacity:0"/>
+	</linearGradient>
+	<polygon class="st1" points="1424.6,274.2 1440.5,405.2 -29.1,97.8 -44.9,-33.3 	"/>
+</g>
+<g class="st2">
+	
+		<linearGradient id="SVGID_00000134245528330133364240000012866117862646021259_" gradientUnits="userSpaceOnUse" x1="-24.0213" y1="935.3729" x2="-28.4487" y2="935.3729" gradientTransform="matrix(-184.7092 -217.1828 8.4698 -75.1754 -12282.626 64938.6445)">
+		<stop  offset="0" style="stop-color:#38BDF8"/>
+		<stop  offset="1" style="stop-color:#38BDF8;stop-opacity:0"/>
+	</linearGradient>
+	
+		<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_00000134245528330133364240000012866117862646021259_);" points="
+		1013,428.6 1023.6,516 43.9,311 33.3,223.6 	"/>
+</g>
+<g class="st4">
+	
+		<linearGradient id="SVGID_00000085972545297278378050000016407442498822098312_" gradientUnits="userSpaceOnUse" x1="-27.8655" y1="954.1481" x2="-32.209" y2="954.1481" gradientTransform="matrix(-184.7092 -217.1828 8.4698 -75.1754 -12199.9766 65311.6445)">
+		<stop  offset="0" style="stop-color:#6366F1"/>
+		<stop  offset="1" style="stop-color:#6366F1;stop-opacity:0"/>
+	</linearGradient>
+	
+		<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_00000085972545297278378050000016407442498822098312_);" points="
+		1949.3,206.9 1959.8,294.2 980.1,89.2 969.6,1.9 	"/>
+</g>
+<g class="st6">
+	
+		<linearGradient id="SVGID_00000167368210779020296720000011497009467973177019_" gradientUnits="userSpaceOnUse" x1="-25.627" y1="934.116" x2="-30.0545" y2="934.116" gradientTransform="matrix(-184.7092 -217.1828 8.4698 -75.1754 -12239.2891 64273.6445)">
+		<stop  offset="0" style="stop-color:#6EE7B7"/>
+		<stop  offset="1" style="stop-color:#6EE7B7;stop-opacity:0"/>
+	</linearGradient>
+	
+		<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_00000167368210779020296720000011497009467973177019_);" points="
+		1342.3,206.9 1352.9,294.2 373.2,89.2 362.6,1.9 	"/>
+</g>
+</svg>

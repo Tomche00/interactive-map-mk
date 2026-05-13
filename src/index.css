@@ -133,43 +133,31 @@
     overflow-y: auto;
   }
 
-  /* Custom gradient background class */
-  .bg-gradient {
-    background: linear-gradient(135deg, 
-      hsl(220 30% 97%) 0%, 
-      hsl(285 20% 96%) 25%, 
-      hsl(220 25% 95%) 50%, 
-      hsl(15 15% 96%) 75%, 
-      hsl(220 30% 97%) 100%);
-    position: relative;
-    overflow: hidden;
-  }
+.bg-gradient {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    hsl(220 30% 97%) 0%,
+    hsl(285 20% 96%) 25%,
+    hsl(220 25% 95%) 50%,
+    hsl(15 15% 96%) 75%,
+    hsl(220 30% 97%) 100%
+  );
+}
 
-  .bg-gradient::before {
-    content: '';
-    position: absolute;
-    top: 1%;
-    left: 1%;
-    width: 500px;
-    height: 500px;
-    background: hsl(var(--accent) / 0.10);
-    border-radius: 50%;
-    filter: blur(100px);
-    pointer-events: none;
-  }
+.bg-gradient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("./assets/background.svg");
+  background-repeat: no-repeat;
+  background-size: 130%;
 
-  .bg-gradient::after {
-    content: '';
-    position: absolute;
-    bottom: 0%;
-    right: -2%;
-    width: 550px;
-    height: 550px;
-    background: hsl(var(--lake) / 0.12);
-    border-radius: 50%;
-    filter: blur(100px);
-    pointer-events: none;
-  }
+  background-position: top right;
+  opacity: 0.4;
+  pointer-events: none;
+}
 
   .glass-panel {
     @apply bg-white/80 backdrop-blur-xl border border-white/20 rounded-xl;
