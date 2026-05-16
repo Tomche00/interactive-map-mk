@@ -1,57 +1,92 @@
-# Content Management Guide
+# Content Architecture & Localization Guide
 
 ## 📋 Overview
 
-This guide provides streamlined workflows for adding new locations and managing translations in the Macedonia Explorer application.
+This document defines the content structure, localization workflow, and validation standards used in Macedonia Explorer.
 
-## 🗺️ Adding Locations & Translations
+The system is designed to support:
+- Structured geospatial content
+- Multi-language location metadata
+- Scalable content ingestion workflows
+- Automated validation and consistency checks
 
-### Unified Workflow
-Single streamlined process for adding new locations with complete translation support.
+## 🗺️ Location Management
 
-### Quick Method
-Add new location with automatic translation support:
+### Content Workflow
+
+Locations are managed through a unified content pipeline with built-in localization support.
+
+### Single Location Import
 
 ```bash
-# Add single location
 npm run add:location --id="new_location" --name="New Location" --type="city"
-
-# Add multiple locations  
-npm run add:location --file="locations.csv"
 ```
 
-### Location Data Structure
-Each location automatically supports both languages:
+### Bulk Import
+
+```bash
+npm run bulk:import --file="locations.csv"
+```
+
+## 📝 Location Schema
+
+Each location supports localized metadata and structured geospatial attributes.
 
 ```json
 {
   "id": "skopje_new",
-  "name": "New Skopje District", 
+  "name": "New Skopje District",
   "nameMk": "Нов Скопски Дистрикт",
   "lat": 41.9981,
   "lng": 21.4254,
   "type": "city",
   "description": "Modern district with cultural amenities",
-  "descriptionMk": "Модерен дистрикт со културни удобства и зелени површини"
+  "descriptionMk": "Модерен дистрикт со културни содржини"
 }
 ```
 
-### Translation Rules
-- **name** (required) - Always shown in English
-- **nameMk** (optional) - Shown in Macedonian when MK language is active
-- **description** (required) - English description for tooltips
-- **descriptionMk** (optional) - Macedonian description for tooltips when MK language is active
+## 🌍 Localization Strategy
 
-### Batch Addition
-```bash
-# Import from CSV with automatic translation
-npm run bulk:import --file="locations.csv" --auto-translate
+### Translation Fields
 
-# Import from Google Sheets
-npm run bulk:import --source="google-sheets" --sheet="LocationData"
+| Field | Purpose |
+|---|---|
+| `name` | English location name |
+| `nameMk` | Macedonian location name |
+| `description` | English description |
+| `descriptionMk` | Macedonian description |
+
+### Translation Architecture
+
+Translations are managed through `src/i18n/translations.ts`.
+
+```typescript
+export const translations = {
+  en: {
+    map: {
+      filters: "Filters"
+    }
+  },
+
+  mk: {
+    map: {
+      filters: "Филтри"
+    }
+  }
+};
 ```
 
+### Translation Standards
+
+- Maintain consistent translation keys
+- Preserve contextual meaning between languages
+- Keep terminology aligned across UI and location metadata
+- Validate translations during content review
+
+## ⚙️ Content Tooling
+
 ### Content Scripts
+
 ```json
 {
   "scripts": {
@@ -62,140 +97,44 @@ npm run bulk:import --source="google-sheets" --sheet="LocationData"
 }
 ```
 
-## 🌐 Translation Management
+### Validation Commands
 
-### Auto-Translation Support
-The application automatically detects and uses translations based on these fields:
-
-- **`name`** - English name of location
-- **`nameMk`** - Macedonian name of location  
-- **`description`** - English description
-- **`descriptionMk`** - Macedonian description
-
-### Translation File Structure
-Translations are stored in `src/i18n/translations.ts`:
-
-```typescript
-export const translations = {
-  en: {
-    map: {
-      filters: "Filters",
-      search: "Search locations...",
-      clearSearch: "Clear search",
-      // ... more translations
-    },
-    types: {
-      city: "Cities",
-      monument: "Monuments", 
-      // ... more type translations
-    }
-  },
-  mk: {
-    map: {
-      filters: "Филтри",
-      search: "Пребарај локации...",
-      clearSearch: "Исчисти пребарување",
-      // ... more translations
-    },
-    types: {
-      city: "Градови",
-      monument: "Споменици",
-      // ... more type translations
-    }
-  }
-};
-```
-
-### Adding New Translations
-When adding new location types, update the translations:
-
-```typescript
-// Add new type to both languages
-types: {
-  city: "Cities",
-  monument: "Monuments",
-  newType: "New Location Type",  // Add to both en and mk
-}
-```
-
-## 📝 Location Data Structure
-
-### Required Fields
-Each location object must include:
-
-| Field | Type | Required | Description |
-|--------|------|----------|-------------|
-| id | string | ✅ | Unique identifier |
-| name | string | ✅ | English name |
-| nameMk | string | ❌ | Macedonian name (optional) |
-| lat | number | ✅ | Latitude coordinate |
-| lng | number | ✅ | Longitude coordinate |
-| type | string | ✅ | Location type (must exist in LOCATION_TYPES) |
-| description | string | ❌ | English description (optional) |
-| descriptionMk | string | ❌ | Macedonian description (optional) |
-| coordinates | array | ❌ | Alternative to lat/lng (optional) |
-
-### Optional Fields
-| Field | Type | Description |
-|--------|------|-------------|
-| website | string | Official website URL |
-| phone | string | Contact phone number |
-| email | string | Contact email |
-| openingHours | string | Business hours |
-| entranceFee | number | Entry fee amount |
-| features | array | List of amenities/features |
-| photos | array | Photo URLs with captions |
-| tags | array | Search-friendly keywords |
-
-## 🔄 Workflow Automation
-
-### Pre-commit Validation
 ```bash
-# Validate location data format
 npm run validate:locations
-
-# Check for missing required fields
 npm run check:location-fields
-
-# Validate coordinate ranges for Macedonia
 npm run validate:coordinates
 ```
 
-### Content Scripts
-Add to `package.json`:
+## 🧩 Schema Requirements
 
-```json
-{
-  "scripts": {
-    "validate:locations": "node scripts/validateLocations.js",
-    "check:location-fields": "node scripts/checkLocationFields.js", 
-    "validate:coordinates": "node scripts/validateCoordinates.js",
-    "add:location": "node scripts/addLocation.js",
-    "bulk:import": "node scripts/bulkImportLocations.js"
-  }
-}
-```
+### Required Fields
 
-## 🎯 Best Practices
+| Field | Type |
+|---|---|
+| `id` | string |
+| `name` | string |
+| `lat` | number |
+| `lng` | number |
+| `type` | string |
 
-### Location Guidelines
-- **Unique IDs**: Use descriptive, URL-friendly identifiers
-- **Accurate Coordinates**: Verify lat/lng within Macedonia bounds
-- **Complete Information**: Provide useful descriptions and contact details
-- **Type Consistency**: Use predefined types from LOCATION_TYPES
-- **Translation Ready**: Include nameMk for Macedonian support
+### Optional Fields
 
-### Translation Guidelines
-- **Consistent Keys**: Use existing translation keys
-- **Cultural Sensitivity**: Ensure accurate Macedonian translations
-- **Contextual Translations**: Consider location context in descriptions
-- **Review Process**: Have translations reviewed by native speakers
+| Field | Type |
+|---|---|
+| `nameMk` | string |
+| `description` | string |
+| `descriptionMk` | string |
+| `website` | string |
+| `phone` | string |
+| `photos` | array |
+| `features` | array |
+| `tags` | array |
 
-## 🛠️ Quality Assurance
+## 🔄 Validation Pipeline
 
-### Validation Rules
+### Coordinate Validation
+
 ```javascript
-// Coordinate validation for Macedonia
 const MACEDONIA_BOUNDS = {
   minLat: 40.8,
   maxLat: 42.4,
@@ -204,65 +143,101 @@ const MACEDONIA_BOUNDS = {
 };
 
 function validateCoordinates(lat, lng) {
-  if (lat < MACEDONIA_BOUNDS.minLat || lat > MACEDONIA_BOUNDS.maxLat ||
-      lng < MACEDONIA_BOUNDS.minLng || lng > MACEDONIA_BOUNDS.maxLng) {
-    throw new Error(`Coordinates ${lat}, ${lng} are outside Macedonia bounds`);
-  }
-  return true;
+  return (
+    lat >= MACEDONIA_BOUNDS.minLat &&
+    lat <= MACEDONIA_BOUNDS.maxLat &&
+    lng >= MACEDONIA_BOUNDS.minLng &&
+    lng <= MACEDONIA_BOUNDS.maxLng
+  );
 }
 ```
 
-### Content Review Checklist
-- [ ] All required fields present
-- [ ] Coordinates within valid ranges
-- [ ] Location type exists in system
-- [ ] English name provided
-- [ ] Macedonian translation reviewed (if applicable)
-- [ ] No duplicate IDs
-- [ ] Valid JSON format
+### Validation Rules
 
-## 📊 Analytics Integration
+- Unique identifiers required
+- Coordinates validated against regional bounds
+- Location types must match supported categories
+- Invalid schema entries rejected during import
+- Translation structure validated during ingestion
 
-### Location Metrics
-Track these metrics for new locations:
-- **Addition frequency**: How often new locations are added
-- **Type distribution**: Most popular location types
-- **Geographic coverage**: Areas with high/low density
-- **Translation usage**: Which languages need more support
+## 📦 Bulk Content Operations
 
-## 🚀 Advanced Features
+### Supported Sources
 
-### Bulk Import
-Support for importing location data from:
-- **CSV files** with column mapping
-- **Google Sheets** integration
-- **External APIs** for location data
-- **Excel files** with coordinate conversion
+- CSV imports
+- Google Sheets integration
+- Structured JSON imports
+- External API ingestion pipelines
 
-### Image Management
-- **Bulk upload** with automatic optimization
-- **CDN integration** for location photos
-- **Automatic resizing** and compression
-- **Alt text generation** for accessibility
+### Import Considerations
+
+- Coordinate normalization
+- Duplicate detection
+- Translation mapping
+- Schema validation
+- Type consistency enforcement
+
+## 🛠️ Content Quality Standards
+
+### Content Guidelines
+
+- Use stable, descriptive identifiers
+- Maintain consistent location categorization
+- Validate coordinate accuracy
+- Avoid duplicate entries
+- Ensure localization completeness where applicable
+
+### Review Checklist
+
+- Required fields validated
+- Coordinate ranges verified
+- Translation structure confirmed
+- Type definitions aligned
+- JSON structure validated
+
+## 🖼️ Media Management
+
+### Asset Handling
+
+- Optimized image delivery
+- Responsive asset sizing
+- Accessibility-focused metadata
+- CDN-ready media structure
+
+## 🚀 Operational Roadmap
+
+### Current Focus Areas
+
+- Bulk import optimization
+- Validation pipeline improvements
+- Localization tooling enhancements
+- Structured media workflows
+
+### Future Enhancements
+
+- Automated translation workflows
+- Headless CMS integration
+- Geospatial enrichment pipelines
+- Content moderation tooling
 
 ---
 
-## 🎯 Getting Started
+## 🎯 Quick Start
 
-### 1. Add Single Location
+### Add a Location
+
 ```bash
 npm run add:location --id="new_location" --name="New Location" --type="city"
 ```
 
-### 2. Add Multiple Locations
+### Import Content
+
 ```bash
-npm run bulk:import --file="locations.csv" --type="village"
+npm run bulk:import --file="locations.csv"
 ```
 
-### 3. Validate Data
+### Run Validation
+
 ```bash
 npm run validate:locations
-npm run check:location-fields
 ```
-
-This streamlined approach reduces friction in adding and translating content while maintaining data quality and consistency.
