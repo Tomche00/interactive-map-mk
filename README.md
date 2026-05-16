@@ -1,58 +1,56 @@
 # Macedonia Explorer
 
-Interactive map application for exploring North Macedonia — browse monuments, cities, nature spots, camping locations, and more.
+Interactive geospatial application for exploring locations across North Macedonia, including monuments, cities, nature areas, camping destinations, and recreational points of interest.
 
 ![Macedonia Explorer](docs/product-shot.png)
 
 ## ✨ Features
 
-- **Multi-language Support** — English/Macedonian toggle with translated UI, filters, and location names
-- **Smart Category Filtering** — Monuments, Cities, Nature, Camping, Recreation, Restaurants, Hotels, Lakes & Rivers
-- **Dynamic Type Detection** — New location types automatically appear in the legend
-- **Rich Location Details** — Hover pins for names, descriptions, coordinates, and Google Maps navigation
-- **Responsive Design** — Desktop sidebar filters, mobile-optimized chip filters
-- **Premium User Experience** — Macedonia-inspired purple theme, glass morphism navigation, sophisticated animations
-- **Enterprise Performance** — Route-based code splitting, lazy loading, component memoization
-- **Comprehensive Testing** — Full test suite with Jest and React Testing Library
+- **Multi-language Support** — English/Macedonian localization for UI and location data
+- **Category Filtering** — Monuments, Cities, Nature, Camping, Recreation, Restaurants, Hotels, Lakes & Rivers
+- **Dynamic Type Mapping** — Automatic handling of new location categories
+- **Location Details** — Metadata, coordinates, and Google Maps integration
+- **Responsive Interface** — Optimized layouts for desktop and mobile devices
+- **Performance Optimizations** — Code splitting, lazy loading, memoization
+- **Testing Infrastructure** — Jest and React Testing Library integration
 
 ## 🎨 Design System
 
-- **Macedonia-Inspired Palette** — Royal purple accent, sunset orange, lake blue, mountain green, terracotta
-- **Glass Morphism UI** — Frosted glass navigation with backdrop blur effects and glass panels
-- **Sophisticated Animations** — Inside-to-outside hover effects with smooth transitions
-- **Enhanced Visual Depth** — Large blurred circles creating layered background interest
-- **Modern Navigation** — Fixed glass morphism header with purple theme
-- **Component Library** — Glass panels, badge pills, section cards with consistent accent colors
-- **Unified Theme System** — Consistent purple accent colors throughout the application
-- **Responsive Layout** — Always-visible header with proper content spacing
-- **Design Tokens** — All colors defined as HSL CSS variables in `index.css`
-- **Branded Assets** — Purple map pin favicon matching the theme
+- **Regional Color Palette** — Inspired by Macedonian landscapes and architecture
+- **Glass-Based UI System** — Frosted navigation and layered interface components
+- **Motion System** — Subtle interaction animations and transitions
+- **Component Consistency** — Shared design tokens and reusable UI patterns
+- **Responsive Layout System** — Adaptive spacing and navigation behavior
+- **CSS Token Architecture** — HSL-based theme variables defined in `index.css`
 
 ## ⚙️ Technical Architecture
 
-### Core Technologies
-- **React 18 + TypeScript** — Modern React with full type safety
-- **Vite** — Lightning-fast development server and optimized builds
-- **Tailwind CSS + shadcn/ui** — Utility-first styling with premium components
-- **React Router** — Client-side routing with lazy loading
-- **Redux Toolkit + RTK Query** — State management and data fetching
-- **React Testing Library + Jest** — Comprehensive testing framework
-- **Custom i18n** — Zero-dependency context-based internationalization
+### Core Stack
 
-### 🔄 State Management Architecture
+- **React 18 + TypeScript**
+- **Vite**
+- **Tailwind CSS + shadcn/ui**
+- **React Router**
+- **Redux Toolkit + RTK Query**
+- **Jest + React Testing Library**
+- **Custom Context-Based i18n**
 
-The application uses Redux Toolkit for predictable state management:
+### 🔄 State Management
+
+Redux Toolkit and RTK Query are used for predictable client-side state management and server data synchronization.
 
 #### Store Structure
-- **filtersSlice** — Manages location type filters and search queries
-- **uiSlice** — Handles UI state (selected locations, tooltips, modals)
-- **locationsApi** — RTK Query for location data fetching and caching
 
-#### Architecture Benefits
-- **Type Safety** — Full TypeScript integration across the stack
-- **Performance** — Automatic caching and intelligent memoization
-- **Developer Experience** — Redux DevTools integration for debugging
-- **Scalability** — Easy to add new features and state management
+- **filtersSlice** — Location filters and search state
+- **uiSlice** — UI interactions and modal state
+- **locationsApi** — RTK Query caching and data fetching
+
+#### Architectural Focus
+
+- Type-safe state management
+- Memoized selectors
+- Predictable async workflows
+- Scalable feature organization
 
 ### 🗂️ Code Organization
 
@@ -95,17 +93,17 @@ src/
     └── flag-mk.png
 ```
 
-### 🚀 Production Pipeline
+### 🚀 Delivery Pipeline
 
-Enterprise-level CI/CD pipeline with quality assurance and deployment automation.
+CI/CD pipeline with automated quality validation and deployment workflows.
 
-#### Pipeline Features
-- **Automated Quality Gates** — ESLint, TypeScript compilation, Security auditing
-- **Performance Monitoring** — Lighthouse audits with bundle size analysis
-- **Automated Deployments** — Staging/Production pipeline with health checks
-- **Rollback Capabilities** — Emergency rollback on deployment failures
-- **Slack Notifications** — Real-time deployment status updates
-- **Single Environment Testing** — Ubuntu + Chrome for reliable CI/CD execution
+#### Pipeline Capabilities
+
+- ESLint and TypeScript validation
+- Security and dependency auditing
+- Lighthouse performance analysis
+- Deployment health checks
+- Automated rollback support
 
 ### ⚡ Performance Engineering
 
@@ -116,110 +114,50 @@ Enterprise-level CI/CD pipeline with quality assurance and deployment automation
 - **Redux Optimization** — Utility functions and `useMemo()` patterns
 
 #### Performance Metrics
-- **Bundle Size** — ~45KB gzipped (main chunk)
-- **First Contentful Paint** — <1.2s on 3G networks
-- **Time to Interactive** — <2s on average connections
-- **Memory Usage** — <50MB for typical user sessions
-- **Scalability** — 262+ locations rendered efficiently with virtualization
 
-#### Implementation Patterns
+- ~45KB gzipped main bundle
+- <1.2s First Contentful Paint
+- <2s Time to Interactive
+- Optimized rendering for large location datasets
 
-**Code Splitting Strategy**
-```typescript
-// App.tsx
-const Index = lazy(() => import("./pages/Index"));
 
-<Routes>
-  <Route path="/" element={
-    <Suspense fallback={<LoadingFallback />}>
-      <Index />
-    </Suspense>
-  } />
-</Routes>
-```
+### 🌍 Internationalization
 
-**Lazy Loading Component**
-```typescript
-// components/ui/lazy-image.tsx
-const LazyImage = ({ src, alt }) => {
-  const [isInView, setIsInView] = useState(false);
-  const imgRef = useRef<HTMLImageElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) setIsInView(true);
-    }, { threshold: 0.1, rootMargin: '50px' });
-
-    if (imgRef.current) observer.observe(imgRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  return <img ref={imgRef} src={isInView ? src : placeholder} alt={alt} />;
-};
-```
-
-### 🌍 Internationalization Architecture
-
-Lightweight context-based i18n system with zero external dependencies.
+Lightweight context-based localization architecture supporting English and Macedonian translations with persistent language preferences.
 
 #### Architecture Overview
 1. **LanguageContext** — Wraps app providing language state and translation object
 2. **Translation Layer** — Single `translations.ts` file with EN/MK objects
 3. **UI Integration** — Flag toggle (🇬🇧 / 🇲🇰) with localStorage persistence
 
-#### Component Integration
-```tsx
-import { useLanguage } from '@/i18n/LanguageContext';
 
-const MyComponent = () => {
-  const { t, language } = useLanguage();
-  return <h1>{t.map.title}</h1>;
-};
-```
+## 🗺️ Roadmap
 
-#### Location Data Translation
-```json
-{
-  "id": "ohrid",
-  "name": "Ohrid",
-  "nameMk": "Охрид",
-  "description": "A lakeside city with UNESCO heritage...",
-  "descriptionMk": "Град покрај езеро со UNESCO наследство...",
-  "type": "city",
-  "coordinates": [20.8016, 41.1231]
-}
-```
+### ✅ Foundation
 
-## 🗺️ Strategic Roadmap
-
-### ✅ Phase 1: Foundation (Completed)
-- Redux Toolkit migration with RTK Query
-- Comprehensive testing infrastructure
-- Performance-optimized selectors
+- Redux Toolkit migration
+- RTK Query integration
 - Type-safe architecture
+- Testing infrastructure
 
-### ✅ Phase 2: Performance Excellence (Completed)
+### ✅ Performance
+
 - Route-based code splitting
 - Progressive image loading
-- Component memoization
-- Redux optimization
+- Memoized rendering patterns
+- Redux performance optimization
 
-### 🎯 Phase 3: Advanced Capabilities
-- **PWA Features** — Offline support, installable app experience
-- **Real-time Updates** — WebSocket integration for live data
-- **Advanced Analytics** — User behavior tracking and insights
-- **Map Clustering** — Performance optimization for high-density areas
-- **Virtual Scrolling** — Optimized rendering for large datasets
-- **Offline Storage** — IndexedDB for cached location data
-- **Background Processing** — Web Workers for heavy computations
+### 🎯 Current Focus Areas
 
-### 🚀 Phase 4: Next-Generation Features
-- **3D Map Integration** — Interactive 3D terrain visualization
-- **AR Navigation** — Augmented reality location discovery
-- **AI-Powered Recommendations** — Smart location suggestions
-- **Social Features** — User reviews, photos, and check-ins
+- PWA support and offline caching
+- Real-time location updates
+- Marker clustering
+- IndexedDB persistence
+- Web Worker processing
+- Virtualized rendering
 
-## 📋 Developer Resources
+
+## 📋 Documentation
 
 - **[docs/TESTING.md](./docs/TESTING.md)** — Comprehensive testing documentation
 - **[docs/ContentManagement.md](./docs/ContentManagement.md)** — Location and translation workflows
